@@ -12,6 +12,7 @@
             background-color: #ffffff;
             color: #1a1a1a;
             scroll-behavior: smooth;
+            overflow-x: hidden;
         }
         .text-buzz-blue { color: #4361ee; }
         .bg-buzz-blue { background-color: #4361ee; }
@@ -67,12 +68,15 @@
             padding-bottom: 1rem !important;
         }
 
-        .fade-in {
-            animation: fadeIn 0.5s ease-in forwards;
+        /* Novas classes de animação controlada */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 <script type="importmap">
@@ -88,12 +92,38 @@
     <div id="root"></div>
 
     <script type="module">
-        import React, { useState, useEffect } from 'https://esm.sh/react@18.2.0';
+        import React, { useState, useEffect, useRef } from 'https://esm.sh/react@18.2.0';
         import ReactDOM from 'https://esm.sh/react-dom@18.2.0/client';
         import { 
             Edit3, MousePointer2, Send, Layout, ShoppingCart, Search, 
             Play, Target, BarChart3, Users, ShieldCheck, AtSign, Mail, PhoneCall, MessageCircle
         } from 'https://esm.sh/lucide-react@0.263.1';
+
+        // Componente utilitário para animação ao rolar
+        const Reveal = ({ children, className = "" }) => {
+            const ref = useRef(null);
+            const [isVisible, setIsVisible] = useState(false);
+
+            useEffect(() => {
+                const observer = new IntersectionObserver(
+                    ([entry]) => {
+                        if (entry.isIntersecting) {
+                            setIsVisible(true);
+                            observer.unobserve(entry.target); // Anima apenas uma vez
+                        }
+                    },
+                    { threshold: 0.1 }
+                );
+
+                if (ref.current) observer.observe(ref.current);
+                return () => observer.disconnect();
+            }, []);
+
+            return React.createElement('div', {
+                ref,
+                className: `reveal ${isVisible ? 'active' : ''} ${className}`
+            }, children);
+        };
 
         const App = () => {
             const [currentPage, setCurrentPage] = useState('home');
@@ -113,7 +143,7 @@
                 className: `fixed w-full z-50 transition-all duration-300 py-6 ${scrolled ? 'nav-scrolled' : 'bg-transparent text-white'}`
             }, React.createElement('div', { className: 'container mx-auto px-6 flex justify-between items-center' }, [
                 React.createElement('div', { 
-                    className: 'text-3xl font-bold tracking-tight cursor-pointer text-buzz-blue', 
+                    className: `text-3xl font-bold tracking-tight cursor-pointer transition-colors ${scrolled ? 'text-buzz-blue' : 'text-white'}`, 
                     onClick: () => setCurrentPage('home'),
                     key: 'logo'
                 }, 'buzzbe'),
@@ -159,7 +189,7 @@
                 ])
             );
 
-            const Home = () => React.createElement('div', { className: 'fade-in' }, [
+            const Home = () => React.createElement('div', null, [
                 React.createElement('header', { className: 'relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden hero-gradient', key: 'hero' }, 
                     React.createElement('div', { className: 'container mx-auto px-6 relative z-10 text-white' }, 
                         React.createElement('div', { className: 'flex flex-col lg:flex-row items-center gap-12' }, [
@@ -180,27 +210,29 @@
                         ])
                     )
                 ),
-                React.createElement('section', { className: 'py-20 bg-[#f8f9fa]', key: 'intro' }, 
-                    React.createElement('div', { className: 'container mx-auto px-6 text-center' }, [
-                        React.createElement('h2', { className: 'text-3xl md:text-4xl font-extrabold mb-4', key: 't' }, 'Bem-vindo à buzzbe'),
-                        React.createElement('p', { className: 'text-[#666] text-lg max-w-2xl mx-auto mb-16', key: 'p' }, 'Somos especialistas em trazer resultados mensuráveis para sua empresa.'),
-                        React.createElement('div', { className: 'grid grid-cols-1 md:grid-cols-3 gap-6', key: 'grid' }, [
-                            { icon: Edit3, title: "Branding", text: "Ocupe a mente e o coração do seu público alvo ao fortalecer e fixar a sua marca." },
-                            { icon: MousePointer2, title: "Performance (ADS)", text: "Gestão de anúncios em redes sociais para geração de resultados em curto prazo." },
-                            { icon: Send, title: "Inbound Marketing", text: "Método criado para atrair e converter novos clientes em diferentes etapas do funil." },
-                            { icon: Layout, title: "Redes Sociais", text: "Planejamento multiplataforma, produção de conteúdo e gestão das plataformas digitais." },
-                            { icon: ShoppingCart, title: "eCommerce", text: "Planejar, executar, mensurar e otimizar campanhas voltadas para o comércio eletrônico." },
-                            { icon: Search, title: "SEO", text: "Otimização para Google, sua empresa bem posicionado no principal buscador da rede." }
-                        ].map((s, idx) => React.createElement('div', { key: idx, className: 'bg-white p-10 text-left border border-gray-100 shadow-sm hover:shadow-md transition-shadow' }, [
-                            React.createElement(s.icon, { className: 'text-buzz-blue mb-6', size: 32, key: 'i' }),
-                            React.createElement('h3', { className: 'text-xl font-bold mb-3', key: 't' }, s.title),
-                            React.createElement('p', { className: 'text-gray-500 text-sm leading-relaxed', key: 'p' }, s.text)
-                        ])))
-                    ])
+                React.createElement(Reveal, { key: 'intro' }, 
+                    React.createElement('section', { className: 'py-20 bg-[#f8f9fa]' }, 
+                        React.createElement('div', { className: 'container mx-auto px-6 text-center' }, [
+                            React.createElement('h2', { className: 'text-3xl md:text-4xl font-extrabold mb-4', key: 't' }, 'Bem-vindo à buzzbe'),
+                            React.createElement('p', { className: 'text-[#666] text-lg max-w-2xl mx-auto mb-16', key: 'p' }, 'Somos especialistas em trazer resultados mensuráveis para sua empresa.'),
+                            React.createElement('div', { className: 'grid grid-cols-1 md:grid-cols-3 gap-6', key: 'grid' }, [
+                                { icon: Edit3, title: "Branding", text: "Ocupe a mente e o coração do seu público alvo ao fortalecer e fixar a sua marca." },
+                                { icon: MousePointer2, title: "Performance (ADS)", text: "Gestão de anúncios em redes sociais para geração de resultados em curto prazo." },
+                                { icon: Send, title: "Inbound Marketing", text: "Método criado para atrair e converter novos clientes em diferentes etapas do funil." },
+                                { icon: Layout, title: "Redes Sociais", text: "Planejamento multiplataforma, produção de conteúdo e gestão das plataformas digitais." },
+                                { icon: ShoppingCart, title: "eCommerce", text: "Planejar, executar, mensurar e otimizar campanhas voltadas para o comércio eletrônico." },
+                                { icon: Search, title: "SEO", text: "Otimização para Google, sua empresa bem posicionado no principal buscador da rede." }
+                            ].map((s, idx) => React.createElement('div', { key: idx, className: 'bg-white p-10 text-left border border-gray-100 shadow-sm hover:shadow-md transition-shadow' }, [
+                                React.createElement(s.icon, { className: 'text-buzz-blue mb-6', size: 32, key: 'i' }),
+                                React.createElement('h3', { className: 'text-xl font-bold mb-3', key: 't' }, s.title),
+                                React.createElement('p', { className: 'text-gray-500 text-sm leading-relaxed', key: 'p' }, s.text)
+                            ])))
+                        ])
+                    )
                 )
             ]);
 
-            const About = () => React.createElement('div', { className: 'fade-in bg-[#f8f9fa]' }, [
+            const About = () => React.createElement('div', null, [
                 React.createElement('div', { className: 'relative pt-40 pb-32 bg-[#0d1b2a] text-center overflow-hidden', key: 'h' }, [
                     React.createElement('div', { className: 'absolute inset-0 opacity-20', style: { backgroundImage: 'linear-gradient(#ffffff 1px, transparent 1px), linear-gradient(90deg, #ffffff 1px, transparent 1px)', backgroundSize: '40px 40px' }, key: 'bg' }),
                     React.createElement('div', { className: 'container mx-auto px-6 relative z-10 text-white', key: 't' }, [
@@ -209,32 +241,34 @@
                     ])
                 ]),
                 React.createElement('div', { className: 'container mx-auto px-6 -mt-16 relative z-20 pb-20', key: 'content' }, 
-                    React.createElement('div', { className: 'grid grid-cols-1 md:grid-cols-3 gap-8' }, [
-                        React.createElement('div', { className: 'bg-white p-12 shadow-xl rounded-sm', key: 'c1' }, [
-                            React.createElement('div', { className: 'w-12 h-1 bg-buzz-blue mb-8' }),
-                            React.createElement('h3', { className: 'text-2xl font-bold mb-6' }, 'Quem somos nós'),
-                            React.createElement('p', { className: 'text-[#666] text-sm leading-relaxed' }, 'Entendemos que o mundo está em constante mudança, assim como as empresas e os negócios.'),
-                            React.createElement('p', { className: 'text-[#666] text-sm leading-relaxed mt-4' }, 'Oferecemos Marketing ágil, tecnologia e análise detalhada de mercado para acelerar seu crescimento.')
-                        ]),
-                        React.createElement('div', { className: 'bg-white p-12 shadow-xl rounded-sm', key: 'c2' }, [
-                            React.createElement('div', { className: 'w-12 h-1 bg-buzz-blue mb-8' }),
-                            React.createElement('h3', { className: 'text-2xl font-bold mb-6' }, 'Missão'),
-                            React.createElement('p', { className: 'text-[#666] text-sm leading-relaxed' }, 'Gerar transformação ao encontrar o seu propósito com o uso de estratégias de publicidade, marketing e vendas.')
-                        ]),
-                        React.createElement('div', { className: 'bg-white p-12 shadow-xl rounded-sm', key: 'c3' }, [
-                            React.createElement('div', { className: 'w-12 h-1 bg-buzz-blue mb-8' }),
-                            React.createElement('h3', { className: 'text-2xl font-bold mb-6' }, 'O que fazemos'),
-                            React.createElement('ul', { className: 'space-y-3' }, 
-                                ['Branding', 'Performance (ADS)', 'SEO', 'Redes Sociais', 'eCommerce', 'Inbound Marketing'].map(i => React.createElement('li', { key: i, className: 'flex items-center gap-3 text-sm text-[#666]' }, [
-                                    React.createElement(Play, { size: 10, className: 'fill-buzz-blue text-buzz-blue', key: 'i' }), i
-                                ]))
-                            )
+                    React.createElement(Reveal, null, 
+                        React.createElement('div', { className: 'grid grid-cols-1 md:grid-cols-3 gap-8' }, [
+                            React.createElement('div', { className: 'bg-white p-12 shadow-xl rounded-sm', key: 'c1' }, [
+                                React.createElement('div', { className: 'w-12 h-1 bg-buzz-blue mb-8' }),
+                                React.createElement('h3', { className: 'text-2xl font-bold mb-6' }, 'Quem somos nós'),
+                                React.createElement('p', { className: 'text-[#666] text-sm leading-relaxed' }, 'Entendemos que o mundo está em constante mudança, assim como as empresas e os negócios.'),
+                                React.createElement('p', { className: 'text-[#666] text-sm leading-relaxed mt-4' }, 'Oferecemos Marketing ágil, tecnologia e análise detalhada de mercado para acelerar seu crescimento.')
+                            ]),
+                            React.createElement('div', { className: 'bg-white p-12 shadow-xl rounded-sm', key: 'c2' }, [
+                                React.createElement('div', { className: 'w-12 h-1 bg-buzz-blue mb-8' }),
+                                React.createElement('h3', { className: 'text-2xl font-bold mb-6' }, 'Missão'),
+                                React.createElement('p', { className: 'text-[#666] text-sm leading-relaxed' }, 'Gerar transformação ao encontrar o seu propósito com o uso de estratégias de publicidade, marketing e vendas.')
+                            ]),
+                            React.createElement('div', { className: 'bg-white p-12 shadow-xl rounded-sm', key: 'c3' }, [
+                                React.createElement('div', { className: 'w-12 h-1 bg-buzz-blue mb-8' }),
+                                React.createElement('h3', { className: 'text-2xl font-bold mb-6' }, 'O que fazemos'),
+                                React.createElement('ul', { className: 'space-y-3' }, 
+                                    ['Branding', 'Performance (ADS)', 'SEO', 'Redes Sociais', 'eCommerce', 'Inbound Marketing'].map(i => React.createElement('li', { key: i, className: 'flex items-center gap-3 text-sm text-[#666]' }, [
+                                        React.createElement(Play, { size: 10, className: 'fill-buzz-blue text-buzz-blue', key: 'i' }), i
+                                    ]))
+                                )
+                            ])
                         ])
-                    ])
+                    )
                 )
             ]);
 
-            const Services = () => React.createElement('div', { className: 'fade-in bg-[#f8f9fa]' }, [
+            const Services = () => React.createElement('div', null, [
                 React.createElement('div', { className: 'relative pt-40 pb-32 bg-[#0d1b2a] text-center overflow-hidden', key: 'h' }, 
                     React.createElement('div', { className: 'container mx-auto px-6 relative z-10 text-white' }, [
                         React.createElement('h1', { className: 'text-5xl md:text-6xl font-bold mb-6' }, 'Serviços'),
@@ -252,17 +286,19 @@
                                 { icon: Layout, title: "Redes Sociais", text: "Gestão profissional das suas plataformas digitais." },
                                 { icon: ShoppingCart, title: "eCommerce", text: "Campanhas voltadas para o comércio eletrônico." },
                                 { icon: Search, title: "SEO", text: "Fique bem posicionado no principal buscador da rede." }
-                            ].map((s, idx) => React.createElement('div', { key: idx, className: 'bg-white p-10 border border-gray-100 shadow-sm hover:shadow-md transition-shadow' }, [
-                                React.createElement(s.icon, { className: 'text-buzz-blue mb-6', size: 32, key: 'i' }),
-                                React.createElement('h3', { className: 'text-xl font-bold mb-3', key: 't' }, s.title),
-                                React.createElement('p', { className: 'text-gray-500 text-sm', key: 'p' }, s.text)
-                            ]))
+                            ].map((s, idx) => React.createElement(Reveal, { key: idx }, 
+                                React.createElement('div', { className: 'bg-white p-10 border border-gray-100 shadow-sm hover:shadow-md transition-shadow h-full' }, [
+                                    React.createElement(s.icon, { className: 'text-buzz-blue mb-6', size: 32, key: 'i' }),
+                                    React.createElement('h3', { className: 'text-xl font-bold mb-3', key: 't' }, s.title),
+                                    React.createElement('p', { className: 'text-gray-500 text-sm', key: 'p' }, s.text)
+                                ])
+                            ))
                         )
                     ])
                 )
             ]);
 
-            const Contact = () => React.createElement('div', { className: 'fade-in bg-white' }, [
+            const Contact = () => React.createElement('div', null, [
                 React.createElement('div', { className: 'relative pt-40 pb-32 bg-[#0d1b2a] text-center overflow-hidden text-white', key: 'h' }, 
                     React.createElement('div', { className: 'container mx-auto px-6 relative z-10' }, [
                         React.createElement('h1', { className: 'text-5xl md:text-6xl font-extrabold mb-4' }, 'Fale com a buzzbe'),
@@ -270,29 +306,31 @@
                     ])
                 ),
                 React.createElement('section', { className: 'py-24 container mx-auto px-6', key: 'content' }, 
-                    React.createElement('div', { className: 'flex flex-col lg:flex-row gap-20' }, [
-                        React.createElement('div', { className: 'lg:w-2/3', key: 'form' }, [
-                            React.createElement('h2', { className: 'text-2xl font-extrabold mb-10' }, 'Preencha o formulário abaixo que entraremos em contato em breve.'),
-                            React.createElement('form', { className: 'space-y-6 max-w-2xl' }, [
-                                React.createElement('input', { placeholder: 'Seu nome', className: 'w-full p-3 border border-gray-200 rounded-sm bg-gray-50/50', key: 'i1' }),
-                                React.createElement('input', { placeholder: 'Seu e-mail', type: 'email', className: 'w-full p-3 border border-gray-200 rounded-sm bg-gray-50/50', key: 'i2' }),
-                                React.createElement('input', { placeholder: 'Assunto', className: 'w-full p-3 border border-gray-200 rounded-sm bg-gray-50/50', key: 'i3' }),
-                                React.createElement('textarea', { placeholder: 'Sua mensagem (opcional)', className: 'w-full p-3 border border-gray-200 rounded-sm bg-gray-50/50 h-48', key: 'i4' }),
-                                React.createElement('button', { type: 'button', className: 'btn-primary px-10 py-3 rounded-md font-bold text-sm uppercase', key: 'btn' }, 'ENVIAR')
-                            ])
-                        ]),
-                        React.createElement('div', { className: 'lg:w-1/3', key: 'info' }, [
-                            React.createElement('h3', { className: 'text-2xl font-extrabold mb-8' }, 'Entre em contato'),
-                            React.createElement('div', { className: 'mb-12' }, [
-                                React.createElement('p', { className: 'font-bold text-sm mb-4' }, 'Confira nossos canais de contato.'),
-                                React.createElement('div', { className: 'flex items-center gap-3 text-sm text-gray-500' }, [
-                                    React.createElement(Mail, { size: 16, className: 'text-buzz-blue', key: 'i' }), ' contato@buzzbe.com.br'
+                    React.createElement(Reveal, null,
+                        React.createElement('div', { className: 'flex flex-col lg:flex-row gap-20' }, [
+                            React.createElement('div', { className: 'lg:w-2/3', key: 'form' }, [
+                                React.createElement('h2', { className: 'text-2xl font-extrabold mb-10' }, 'Preencha o formulário abaixo que entraremos em contato em breve.'),
+                                React.createElement('form', { className: 'space-y-6 max-w-2xl' }, [
+                                    React.createElement('input', { placeholder: 'Seu nome', className: 'w-full p-3 border border-gray-200 rounded-sm bg-gray-50/50', key: 'i1' }),
+                                    React.createElement('input', { placeholder: 'Seu e-mail', type: 'email', className: 'w-full p-3 border border-gray-200 rounded-sm bg-gray-50/50', key: 'i2' }),
+                                    React.createElement('input', { placeholder: 'Assunto', className: 'w-full p-3 border border-gray-200 rounded-sm bg-gray-50/50', key: 'i3' }),
+                                    React.createElement('textarea', { placeholder: 'Sua mensagem (opcional)', className: 'w-full p-3 border border-gray-200 rounded-sm bg-gray-50/50 h-48', key: 'i4' }),
+                                    React.createElement('button', { type: 'button', className: 'btn-primary px-10 py-3 rounded-md font-bold text-sm uppercase', key: 'btn' }, 'ENVIAR')
                                 ])
                             ]),
-                            React.createElement('p', { className: 'font-bold text-sm mb-4' }, 'Telefone e Whatsapp'),
-                            React.createElement('a', { href: 'tel:41998939133', className: 'text-3xl font-extrabold text-buzz-blue hover:opacity-80 transition-opacity' }, '(41) 99893-9133')
+                            React.createElement('div', { className: 'lg:w-1/3', key: 'info' }, [
+                                React.createElement('h3', { className: 'text-2xl font-extrabold mb-8' }, 'Entre em contato'),
+                                React.createElement('div', { className: 'mb-12' }, [
+                                    React.createElement('p', { className: 'font-bold text-sm mb-4' }, 'Confira nossos canais de contato.'),
+                                    React.createElement('div', { className: 'flex items-center gap-3 text-sm text-gray-500' }, [
+                                        React.createElement(Mail, { size: 16, className: 'text-buzz-blue', key: 'i' }), ' contato@buzzbe.com.br'
+                                    ])
+                                ]),
+                                React.createElement('p', { className: 'font-bold text-sm mb-4' }, 'Telefone e Whatsapp'),
+                                React.createElement('a', { href: 'tel:41998939133', className: 'text-3xl font-extrabold text-buzz-blue hover:opacity-80 transition-opacity' }, '(41) 99893-9133')
+                            ])
                         ])
-                    ])
+                    )
                 )
             ]);
 
