@@ -15,12 +15,12 @@
             --bg-light: #152238;      
             --brand-blue: #4285F4;    
             --brand-blue-hover: #2b6ce0;
-            --success: #10B981; /* Cor de aprovação */
+            --success: #10B981; 
             --success-hover: #059669;
             --primary: #ffffff;
             --accent: #000000;
             --text-muted: #94a3b8;
-            --transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --transition: 0.3s ease;
         }
 
         * {
@@ -30,30 +30,27 @@
         }
 
         body {
-            height: 100vh;
             font-family: 'Poppins', sans-serif;
-            overflow: hidden;
-            background: radial-gradient(circle at top left, var(--bg-light), var(--bg-dark) 80%);
+            background: var(--bg-dark);
             color: var(--primary);
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* Barra superior estruturada em 3 colunas para alinhar perfeitamente */
+        /* ====== HEADER (TOPBAR) ====== */
         .topbar {
-            position: absolute;
+            position: sticky;
             top: 0;
-            left: 0;
             width: 100%;
             height: 80px;
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
+            display: flex;
             align-items: center;
+            justify-content: space-between;
             padding: 0 40px;
-            background: rgba(11, 20, 38, 0.6);
+            background: rgba(11, 20, 38, 0.9);
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             z-index: 10;
-            transition: transform var(--transition);
         }
 
         .logo {
@@ -61,69 +58,287 @@
             font-size: 26px;
             font-weight: 800;
             letter-spacing: -1px; 
-            justify-self: start;
         }
 
-        /* Informações do Projeto para o Cliente */
         .project-info {
             text-align: center;
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
         }
 
         .project-info h1 {
             font-size: 16px;
             font-weight: 600;
-            color: var(--primary);
             margin: 0;
         }
 
         .project-info p {
             font-size: 12px;
             color: var(--text-muted);
-            font-weight: 400;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
-        .actions {
-            display: flex;
-            gap: 12px;
-            justify-self: end;
+        .header-actions button {
+            background: transparent;
+            color: var(--text-muted);
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 8px;
+            transition: var(--transition);
         }
 
-        .actions button {
+        .header-actions button:hover {
+            color: var(--primary);
+            background: rgba(255,255,255,0.05);
+        }
+
+        /* ====== GRID PRINCIPAL ====== */
+        .container {
+            padding: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .grid-header {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .grid-header h2 {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        /* O Grid das imagens */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .grid-item {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--bg-light);
+            aspect-ratio: 16/9; /* Mantém as miniaturas proporcionais */
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            transition: var(--transition);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .grid-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Preenche a miniatura inteira */
+            transition: transform 0.5s ease;
+        }
+
+        .grid-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Overlay escuro que aparece ao passar o mouse */
+        .item-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(11, 20, 38, 0.7);
+            opacity: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .grid-item:hover .item-overlay {
+            opacity: 1;
+        }
+
+        .item-overlay span {
+            background: var(--brand-blue);
+            color: white;
             padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 13px;
+            transform: translateY(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .grid-item:hover .item-overlay span {
+            transform: translateY(0);
+        }
+
+        .item-label {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(0,0,0,0.8);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            color: white;
+            z-index: 2;
+        }
+
+        /* ====== MODAL / SLIDER (APRESENTAÇÃO) ====== */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(11, 20, 38, 0.98);
+            backdrop-filter: blur(15px);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* Topbar do Modal */
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .modal-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .close-modal {
+            background: transparent;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            background: rgba(255,255,255,0.2);
+            transform: rotate(90deg);
+        }
+
+        /* Área central do modal (Imagem) */
+        .modal-content {
+            flex: 1;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 80px;
+        }
+
+        .modal-content img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+
+        /* Navegação */
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.05);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.1);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .nav-arrow:hover {
+            background: var(--primary);
+            color: var(--accent);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .prev-btn { left: 20px; }
+        .next-btn { right: 20px; }
+
+        /* Rodapé do Modal (Botões de Aprovação) */
+        .modal-footer {
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .slide-counter {
+            background: rgba(0,0,0,0.5);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .approval-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .approval-actions button {
+            padding: 12px 24px;
             border: none;
             border-radius: 50px; 
             cursor: pointer;
             font-family: 'Poppins', sans-serif;
             font-weight: 600;
-            font-size: 13px;
-            transition: all 0.3s ease;
+            font-size: 14px;
+            transition: var(--transition);
             display: flex;
             align-items: center;
             gap: 8px;
-            letter-spacing: 0.3px;
         }
 
         .btn-approve {
             background: var(--success);
-            color: var(--primary);
+            color: white;
             box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
         }
 
         .btn-approve:hover {
             background: var(--success-hover);
-            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
             transform: translateY(-2px);
         }
 
         .btn-adjust {
             background: rgba(255, 255, 255, 0.05);
-            color: var(--primary);
-            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
         }
 
         .btn-adjust:hover {
@@ -131,200 +346,16 @@
             transform: translateY(-2px);
         }
 
-        .fullscreen-btn {
-            background: transparent;
-            color: var(--text-muted);
-            padding: 10px;
-        }
-
-        .fullscreen-btn:hover {
-            color: var(--primary);
-        }
-
-        /* Dica de atalho com animação para sumir */
-        .shortcut-hint {
-            position: absolute;
-            bottom: 24px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 13px;
-            background: rgba(0, 0, 0, 0.4);
-            padding: 12px 24px;
-            border-radius: 30px;
-            backdrop-filter: blur(5px);
-            z-index: 5;
-            transition: opacity 0.8s ease;
-            pointer-events: none;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            text-align: center;
-            animation: fadeOut 6s forwards; /* Some após 6 segundos */
-        }
-
-        @keyframes fadeOut {
-            0% { opacity: 0; transform: translate(-50%, 10px); }
-            10% { opacity: 1; transform: translate(-50%, 0); }
-            80% { opacity: 1; transform: translate(-50%, 0); }
-            100% { opacity: 0; visibility: hidden; }
-        }
-
-        /* Container da Apresentação */
-        .presentation {
-            position: absolute;
-            top: 80px;
-            left: 0;
-            width: 100%;
-            height: calc(100vh - 80px);
-            padding: 0 40px 40px 40px;
-            transition: all var(--transition);
-        }
-
-        /* Galeria de Imagens */
-        .slider-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            background: var(--bg-dark);
-            border-radius: 16px;
-            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.5);
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: border-radius var(--transition);
-        }
-
-        .slider-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain; 
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        .slider-container img.active {
-            opacity: 1;
-        }
-
-        /* Botões de navegação dos slides */
-        .nav-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(11, 20, 38, 0.6);
-            backdrop-filter: blur(4px);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            font-size: 20px;
-            cursor: pointer;
-            z-index: 3;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .nav-arrow:hover {
-            background: var(--brand-blue);
-            border-color: var(--brand-blue);
-            transform: translateY(-50%) scale(1.1);
-        }
-
-        .prev-btn { left: 24px; }
-        .next-btn { right: 24px; }
-
-        /* Contador de slides elegante */
-        .slide-counter {
-            position: absolute;
-            bottom: 24px;
-            background: rgba(11, 20, 38, 0.6);
-            backdrop-filter: blur(4px);
-            color: var(--primary);
-            padding: 6px 18px;
-            border-radius: 30px;
-            font-size: 13px;
-            font-weight: 500;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            z-index: 3;
-            letter-spacing: 2px;
-        }
-
-        /* Loader */
-        .loader {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: rgba(11, 20, 38, 0.95);
-            z-index: 4;
-            transition: opacity 0.4s ease;
-        }
-
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid rgba(66, 133, 244, 0.1);
-            border-top: 3px solid var(--brand-blue);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Botão flutuante para sair do modo apresentação */
-        .exit-presentation {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(0,0,0,0.7);
-            color: white;
-            border: 1px solid rgba(255,255,255,0.2);
-            padding: 10px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            z-index: 100;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            font-size: 13px;
-        }
-
-        /* ====== MODO APRESENTAÇÃO ====== */
-        .presentation-mode .topbar {
-            transform: translateY(-100%);
-        }
-
-        .presentation-mode .presentation {
-            top: 0;
-            height: 100vh;
-            padding: 0; 
-        }
-
-        .presentation-mode .slider-container {
-            border-radius: 0; 
-        }
-
-        .presentation-mode .exit-presentation {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        @media (max-width: 900px) {
-            .topbar { grid-template-columns: 1fr 1fr; padding: 0 20px; }
-            .project-info { display: none; /* Esconde info no mobile para poupar espaço */ }
-            .presentation { padding: 0 20px 20px 20px; }
-            .actions button span { display: none; }
-            .actions button { padding: 10px; border-radius: 8px; }
-            .nav-arrow { width: 40px; height: 40px; font-size: 16px; left: 10px; }
+        @media (max-width: 768px) {
+            .topbar { padding: 0 20px; }
+            .container { padding: 20px; }
+            .modal-content { padding: 20px 0; }
+            .nav-arrow { width: 40px; height: 40px; font-size: 16px; }
+            .prev-btn { left: 10px; }
             .next-btn { right: 10px; }
+            .modal-footer { flex-direction: column; gap: 15px; padding: 20px; }
+            .approval-actions { width: 100%; }
+            .approval-actions button { flex: 1; justify-content: center; }
         }
     </style>
 </head>
@@ -333,144 +364,161 @@
 
     <header class="topbar">
         <div class="logo">buzzbe</div>
-        
         <div class="project-info">
             <h1>Mês do Consumidor</h1>
             <p>Aprovação de Artes</p>
         </div>
-
-        <div class="actions">
-            <button class="btn-adjust" onclick="enviarWhatsApp('ajuste')" title="Solicitar Alteração">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                <span>Pedir Ajuste</span>
-            </button>
-            <button class="btn-approve" onclick="enviarWhatsApp('aprovar')" title="Aprovar Artes">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>Aprovar Artes</span>
-            </button>
-            <button id="fsBtn" class="fullscreen-btn" onclick="toggleFullScreen()" title="Tela Cheia">
+        <div class="header-actions">
+            <button id="fsBtn" onclick="toggleFullScreen()" title="Tela Cheia">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
             </button>
         </div>
     </header>
 
-    <div class="shortcut-hint">
-        <strong>Espaço:</strong> Tela Cheia &nbsp;|&nbsp; <strong>Setas (← / →):</strong> Navegar
-    </div>
-    
-    <button class="exit-presentation" onclick="togglePresentationMode()">Sair da Tela Cheia</button>
-
-    <main class="presentation">
-        <div class="slider-container" id="slider">
-            <div class="loader" id="loader">
-                <div class="spinner"></div>
-            </div>
-
-            <img id="slideImage" src="" alt="Slide da Apresentação" onload="hideLoader()" onerror="handleError()">
-
-            <button class="nav-arrow prev-btn" onclick="prevSlide()">&#10094;</button>
-            <button class="nav-arrow next-btn" onclick="nextSlide()">&#10095;</button>
-
-            <div class="slide-counter" id="counter">1 / 1</div>
+    <main class="container">
+        <div class="grid-header">
+            <h2>Peças da Campanha</h2>
+            <span style="color: var(--text-muted); font-size: 14px;">Clique para expandir e aprovar</span>
         </div>
+
+        <div class="gallery-grid" id="galleryGrid">
+            </div>
     </main>
+
+    <div class="modal" id="presentationModal">
+        <div class="modal-header">
+            <div class="modal-title" id="modalTitle">Nome da Imagem</div>
+            <button class="close-modal" onclick="closeModal()" title="Fechar (ESC)">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+        </div>
+
+        <div class="modal-content">
+            <button class="nav-arrow prev-btn" onclick="prevSlide()">&#10094;</button>
+            <img id="modalImage" src="" alt="Arte expandida">
+            <button class="nav-arrow next-btn" onclick="nextSlide()">&#10095;</button>
+        </div>
+
+        <div class="modal-footer">
+            <div class="slide-counter" id="modalCounter">1 / 8</div>
+            <div class="approval-actions">
+                <button class="btn-adjust" onclick="enviarWhatsApp('ajuste')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                    Pedir Ajuste
+                </button>
+                <button class="btn-approve" onclick="enviarWhatsApp('aprovar')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    Aprovar Arte
+                </button>
+            </div>
+        </div>
+    </div>
 
     <script>
         // ==========================================
-        // IMAGENS DO PROJETO
+        // DADOS DAS IMAGENS
+        // Adicione um nome (title) para cada imagem para identificar no WhatsApp
         // ==========================================
         const slides = [
-            "https://criarleal.github.io/buzzbe/aprovar/slide1.png",
-            "https://criarleal.github.io/buzzbe/aprovar/slide2.png",
-            "https://criarleal.github.io/buzzbe/aprovar/slide3.png",
-            "https://criarleal.github.io/buzzbe/aprovar/slide4.png",
-            "https://criarleal.github.io/buzzbe/aprovar/slide5.png",
-            "https://criarleal.github.io/buzzbe/aprovar/slide6.png",
-            "https://criarleal.github.io/buzzbe/aprovar/slide7.png",
-            "https://criarleal.github.io/buzzbe/aprovar/slide8.png"
+            { src: "https://criarleal.github.io/buzzbe/aprovar/slide1.png", title: "Capa da Campanha" },
+            { src: "https://criarleal.github.io/buzzbe/aprovar/slide2.png", title: "Post Carrossel 1" },
+            { src: "https://criarleal.github.io/buzzbe/aprovar/slide3.png", title: "Post Carrossel 2" },
+            { src: "https://criarleal.github.io/buzzbe/aprovar/slide4.png", title: "Post Carrossel 3" },
+            { src: "https://criarleal.github.io/buzzbe/aprovar/slide5.png", title: "Story Promocional" },
+            { src: "https://criarleal.github.io/buzzbe/aprovar/slide6.png", title: "Banner Site" },
+            { src: "https://criarleal.github.io/buzzbe/aprovar/slide7.png", title: "Capa Facebook" },
+            { src: "https://criarleal.github.io/buzzbe/aprovar/slide8.png", title: "Arte Final" }
         ];
 
         let currentIndex = 0;
-        const imgElement = document.getElementById("slideImage");
-        const loader = document.getElementById("loader");
-        const counterElement = document.getElementById("counter");
+        const modal = document.getElementById("presentationModal");
+        const modalImage = document.getElementById("modalImage");
+        const modalTitle = document.getElementById("modalTitle");
+        const modalCounter = document.getElementById("modalCounter");
 
-        function loadSlide(index) {
-            loader.style.display = "flex";
-            loader.style.opacity = "1";
-            imgElement.classList.remove("active");
-            
-            imgElement.src = slides[index];
-            counterElement.innerText = `${index + 1} / ${slides.length}`;
+        // 1. GERAR O GRID DE IMAGENS NA TELA INICIAL
+        function renderGrid() {
+            const gridContainer = document.getElementById("galleryGrid");
+            gridContainer.innerHTML = '';
+
+            slides.forEach((slide, index) => {
+                const item = document.createElement('div');
+                item.className = 'grid-item';
+                // Ao clicar na miniatura, abre o modal direto naquela imagem
+                item.onclick = () => openModal(index);
+
+                item.innerHTML = `
+                    <img src="${slide.src}" alt="${slide.title}" loading="lazy">
+                    <div class="item-label">${index + 1}</div>
+                    <div class="item-overlay">
+                        <span>Ver e Aprovar</span>
+                    </div>
+                `;
+                gridContainer.appendChild(item);
+            });
         }
 
-        function hideLoader() {
-            loader.style.opacity = "0";
-            setTimeout(() => loader.style.display = "none", 400);
-            imgElement.classList.add("active");
+        // 2. FUNÇÕES DO MODAL
+        function openModal(index) {
+            currentIndex = index;
+            updateModalContent();
+            modal.classList.add("active");
+            document.body.style.overflow = "hidden"; // Impede rolagem da página ao fundo
         }
 
-        function handleError() {
-            hideLoader();
-            console.error("Imagem não encontrada: " + imgElement.src);
-            alert("Erro ao carregar a imagem. Atualize a página e tente novamente.");
+        function closeModal() {
+            modal.classList.remove("active");
+            document.body.style.overflow = "auto";
+        }
+
+        function updateModalContent() {
+            const slide = slides[currentIndex];
+            modalImage.src = slide.src;
+            modalTitle.innerText = `Arte ${currentIndex + 1}: ${slide.title}`;
+            modalCounter.innerText = `${currentIndex + 1} de ${slides.length}`;
         }
 
         function nextSlide() {
-            currentIndex = (currentIndex + 1) % slides.length; 
-            loadSlide(currentIndex);
+            currentIndex = (currentIndex + 1) % slides.length;
+            updateModalContent();
         }
 
         function prevSlide() {
-            currentIndex = (currentIndex - 1 + slides.length) % slides.length; 
-            loadSlide(currentIndex);
+            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+            updateModalContent();
         }
 
-        window.onload = () => loadSlide(currentIndex);
-
         // ==========================================
-        // INTEGRAÇÃO COM WHATSAPP PARA APROVAÇÃO
+        // WHATSAPP - APROVAÇÃO INDIVIDUAL
         // ==========================================
         function enviarWhatsApp(acao) {
-            // Coloque o número de WhatsApp da agência/atendimento aqui (apenas números, com DDI e DDD)
-            const numeroWhatsApp = "5511999999999"; 
+            const numeroWhatsApp = "5511999999999"; // Coloque seu número aqui
+            
+            // Pega o nome da imagem atual para enviar na mensagem
+            const arteAtual = slides[currentIndex].title;
+            const numArte = currentIndex + 1;
             
             let mensagem = "";
             
             if(acao === 'aprovar') {
-                mensagem = "Olá! Acabei de visualizar a apresentação *Mês do Consumidor* e as artes estão *APROVADAS*! ✅ Podemos seguir.";
+                mensagem = `✅ *ARTE APROVADA*\n\nCampanha: Mês do Consumidor\nArte ${numArte}: *${arteAtual}*\n\nPode seguir com essa!`;
             } else if (acao === 'ajuste') {
-                mensagem = "Olá! Estou visualizando a apresentação *Mês do Consumidor* e gostaria de solicitar alguns *ajustes* nas artes. ✍️";
+                mensagem = `✍️ *PEDIDO DE AJUSTE*\n\nCampanha: Mês do Consumidor\nArte ${numArte}: *${arteAtual}*\n\nGostaria de alterar o seguinte: \n(escreva aqui o ajuste)`;
             }
 
             const url = `https://api.whatsapp.com/send?phone=${numeroWhatsApp}&text=${encodeURIComponent(mensagem)}`;
             window.open(url, '_blank');
         }
 
-        // ==========================================
-        // MODO TELA CHEIA
-        // ==========================================
-        function toggleFullScreen() {
-            if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen().catch(err => {
-                    console.log(`Erro ao tentar entrar em tela cheia`);
-                });
-            } else {
-                document.exitFullscreen();
-            }
-        }
+        // Inicializa o Grid ao carregar a página
+        window.onload = renderGrid;
 
-        function togglePresentationMode() {
-            document.body.classList.toggle("presentation-mode");
-        }
-
+        // Controles de Teclado
         document.addEventListener("keydown", function(e) {
-            if (e.code === "Space") {
-                e.preventDefault();
-                togglePresentationMode();
-            }
-            if (e.code === "Escape" && document.body.classList.contains("presentation-mode")) {
-                document.body.classList.remove("presentation-mode");
+            if (!modal.classList.contains("active")) return; // Só funciona se o modal estiver aberto
+
+            if (e.code === "Escape") {
+                closeModal();
             }
             if (e.code === "ArrowRight") {
                 nextSlide();
@@ -479,6 +527,15 @@
                 prevSlide();
             }
         });
+
+        // Fullscreen geral
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => console.log(err));
+            } else {
+                document.exitFullscreen();
+            }
+        }
     </script>
 
 </body>
