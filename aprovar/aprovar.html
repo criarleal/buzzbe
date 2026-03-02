@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>buzzbe | Apresentação</title>
+    <title>buzzbe | Aprovação de Artes</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;800&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -15,8 +15,11 @@
             --bg-light: #152238;      
             --brand-blue: #4285F4;    
             --brand-blue-hover: #2b6ce0;
+            --success: #10B981; /* Cor de aprovação */
+            --success-hover: #059669;
             --primary: #ffffff;
             --accent: #000000;
+            --text-muted: #94a3b8;
             --transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
@@ -34,38 +37,64 @@
             color: var(--primary);
         }
 
-        /* Barra superior */
+        /* Barra superior estruturada em 3 colunas para alinhar perfeitamente */
         .topbar {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 70px;
-            display: flex;
+            height: 80px;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
             align-items: center;
-            justify-content: space-between;
             padding: 0 40px;
-            background: transparent;
+            background: rgba(11, 20, 38, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             z-index: 10;
             transition: transform var(--transition);
         }
 
         .logo {
             color: var(--brand-blue);
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 800;
             letter-spacing: -1px; 
+            justify-self: start;
+        }
+
+        /* Informações do Projeto para o Cliente */
+        .project-info {
+            text-align: center;
             display: flex;
-            align-items: center;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .project-info h1 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--primary);
+            margin: 0;
+        }
+
+        .project-info p {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .actions {
             display: flex;
-            gap: 16px;
+            gap: 12px;
+            justify-self: end;
         }
 
         .actions button {
-            padding: 10px 24px;
+            padding: 10px 20px;
             border: none;
             border-radius: 50px; 
             cursor: pointer;
@@ -76,61 +105,76 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
         }
 
-        .open-figma {
-            background: var(--brand-blue);
+        .btn-approve {
+            background: var(--success);
             color: var(--primary);
-            box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3);
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
+        }
+
+        .btn-approve:hover {
+            background: var(--success-hover);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-adjust {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--primary);
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        }
+
+        .btn-adjust:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
         }
 
         .fullscreen-btn {
             background: transparent;
-            color: var(--primary);
-            border: 1px solid rgba(255, 255, 255, 0.3) !important;
-        }
-
-        .actions button:hover {
-            transform: translateY(-2px);
-        }
-
-        .open-figma:hover {
-            background: var(--brand-blue-hover);
-            box-shadow: 0 6px 20px rgba(66, 133, 244, 0.4);
+            color: var(--text-muted);
+            padding: 10px;
         }
 
         .fullscreen-btn:hover {
-            border-color: var(--primary) !important;
-            background: rgba(255, 255, 255, 0.05);
+            color: var(--primary);
         }
 
-        /* Dica de atalho (Spacebar) */
+        /* Dica de atalho com animação para sumir */
         .shortcut-hint {
             position: absolute;
             bottom: 24px;
             left: 50%;
             transform: translateX(-50%);
-            color: rgba(255, 255, 255, 0.5);
+            color: rgba(255, 255, 255, 0.6);
             font-size: 13px;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 10px 20px;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 12px 24px;
             border-radius: 30px;
             backdrop-filter: blur(5px);
             z-index: 5;
-            transition: opacity var(--transition);
+            transition: opacity 0.8s ease;
             pointer-events: none;
             border: 1px solid rgba(255, 255, 255, 0.05);
             text-align: center;
+            animation: fadeOut 6s forwards; /* Some após 6 segundos */
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 0; transform: translate(-50%, 10px); }
+            10% { opacity: 1; transform: translate(-50%, 0); }
+            80% { opacity: 1; transform: translate(-50%, 0); }
+            100% { opacity: 0; visibility: hidden; }
         }
 
         /* Container da Apresentação */
         .presentation {
             position: absolute;
-            top: 70px;
+            top: 80px;
             left: 0;
             width: 100%;
-            height: calc(100vh - 70px);
+            height: calc(100vh - 80px);
             padding: 0 40px 40px 40px;
             transition: all var(--transition);
         }
@@ -140,10 +184,9 @@
             position: relative;
             width: 100%;
             height: 100%;
-            /* ALTERADO: Fundo agora é a cor escura institucional */
             background: var(--bg-dark);
-            border-radius: 12px;
-            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6);
+            border-radius: 16px;
+            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.5);
             overflow: hidden;
             display: flex;
             justify-content: center;
@@ -154,9 +197,9 @@
         .slider-container img {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* Garante que a imagem não seja cortada */
+            object-fit: contain; 
             opacity: 0;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.4s ease;
         }
 
         .slider-container img.active {
@@ -168,16 +211,17 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(11, 20, 38, 0.6);
+            backdrop-filter: blur(4px);
             color: white;
-            border: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            font-size: 24px;
+            font-size: 20px;
             cursor: pointer;
             z-index: 3;
-            transition: background 0.3s ease, transform 0.3s ease;
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -185,24 +229,27 @@
 
         .nav-arrow:hover {
             background: var(--brand-blue);
+            border-color: var(--brand-blue);
             transform: translateY(-50%) scale(1.1);
         }
 
-        .prev-btn { left: 20px; }
-        .next-btn { right: 20px; }
+        .prev-btn { left: 24px; }
+        .next-btn { right: 24px; }
 
-        /* Contador de slides */
+        /* Contador de slides elegante */
         .slide-counter {
             position: absolute;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(0,0,0,0.6);
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
+            bottom: 24px;
+            background: rgba(11, 20, 38, 0.6);
+            backdrop-filter: blur(4px);
+            color: var(--primary);
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             z-index: 3;
+            letter-spacing: 2px;
         }
 
         /* Loader */
@@ -212,17 +259,16 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /* ALTERADO: Fundo do loader agora é escuro e semitransparente */
-            background: rgba(11, 20, 38, 0.9);
+            background: rgba(11, 20, 38, 0.95);
             z-index: 4;
             transition: opacity 0.4s ease;
         }
 
         .spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid rgba(66, 133, 244, 0.1);
-            border-top: 4px solid var(--brand-blue);
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(66, 133, 244, 0.1);
+            border-top: 3px solid var(--brand-blue);
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
@@ -266,22 +312,19 @@
             border-radius: 0; 
         }
 
-        .presentation-mode .shortcut-hint {
-            opacity: 0; 
-        }
-
         .presentation-mode .exit-presentation {
             opacity: 1;
             pointer-events: all;
         }
 
-        @media (max-width: 768px) {
-            .topbar { padding: 0 20px; }
+        @media (max-width: 900px) {
+            .topbar { grid-template-columns: 1fr 1fr; padding: 0 20px; }
+            .project-info { display: none; /* Esconde info no mobile para poupar espaço */ }
             .presentation { padding: 0 20px 20px 20px; }
-            .shortcut-hint { display: none; }
             .actions button span { display: none; }
             .actions button { padding: 10px; border-radius: 8px; }
-            .nav-arrow { width: 40px; height: 40px; font-size: 18px; }
+            .nav-arrow { width: 40px; height: 40px; font-size: 16px; left: 10px; }
+            .next-btn { right: 10px; }
         }
     </style>
 </head>
@@ -290,24 +333,32 @@
 
     <header class="topbar">
         <div class="logo">buzzbe</div>
+        
+        <div class="project-info">
+            <h1>Mês do Consumidor</h1>
+            <p>Aprovação de Artes</p>
+        </div>
+
         <div class="actions">
-            <button class="open-figma" onclick="alert('Funcionalidade a ser implementada')" title="Baixar PDF">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                <span>Baixar PDF</span>
+            <button class="btn-adjust" onclick="enviarWhatsApp('ajuste')" title="Solicitar Alteração">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                <span>Pedir Ajuste</span>
+            </button>
+            <button class="btn-approve" onclick="enviarWhatsApp('aprovar')" title="Aprovar Artes">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Aprovar Artes</span>
             </button>
             <button id="fsBtn" class="fullscreen-btn" onclick="toggleFullScreen()" title="Tela Cheia">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
-                <span>Fullscreen</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
             </button>
         </div>
     </header>
 
     <div class="shortcut-hint">
-        <strong>Espaço:</strong> Modo Apresentação <br>
-        <strong>Setas (← / →):</strong> Navegar
+        <strong>Espaço:</strong> Tela Cheia &nbsp;|&nbsp; <strong>Setas (← / →):</strong> Navegar
     </div>
     
-    <button class="exit-presentation" onclick="togglePresentationMode()">Sair da Apresentação</button>
+    <button class="exit-presentation" onclick="togglePresentationMode()">Sair da Tela Cheia</button>
 
     <main class="presentation">
         <div class="slider-container" id="slider">
@@ -326,8 +377,7 @@
 
     <script>
         // ==========================================
-        // Usando caminhos relativos (com barra normal '/')
-        // O arquivo HTML deve estar salvo na pasta Downloads!
+        // IMAGENS DO PROJETO
         // ==========================================
         const slides = [
             "https://criarleal.github.io/buzzbe/aprovar/slide1.png",
@@ -360,11 +410,10 @@
             imgElement.classList.add("active");
         }
 
-        // Função extra caso a imagem não seja encontrada (ajuda a debugar)
         function handleError() {
             hideLoader();
             console.error("Imagem não encontrada: " + imgElement.src);
-            alert("Erro: A imagem " + slides[currentIndex] + " não foi encontrada. Verifique se as imagens estão na mesma pasta que o arquivo HTML.");
+            alert("Erro ao carregar a imagem. Atualize a página e tente novamente.");
         }
 
         function nextSlide() {
@@ -379,10 +428,32 @@
 
         window.onload = () => loadSlide(currentIndex);
 
+        // ==========================================
+        // INTEGRAÇÃO COM WHATSAPP PARA APROVAÇÃO
+        // ==========================================
+        function enviarWhatsApp(acao) {
+            // Coloque o número de WhatsApp da agência/atendimento aqui (apenas números, com DDI e DDD)
+            const numeroWhatsApp = "5511999999999"; 
+            
+            let mensagem = "";
+            
+            if(acao === 'aprovar') {
+                mensagem = "Olá! Acabei de visualizar a apresentação *Mês do Consumidor* e as artes estão *APROVADAS*! ✅ Podemos seguir.";
+            } else if (acao === 'ajuste') {
+                mensagem = "Olá! Estou visualizando a apresentação *Mês do Consumidor* e gostaria de solicitar alguns *ajustes* nas artes. ✍️";
+            }
+
+            const url = `https://api.whatsapp.com/send?phone=${numeroWhatsApp}&text=${encodeURIComponent(mensagem)}`;
+            window.open(url, '_blank');
+        }
+
+        // ==========================================
+        // MODO TELA CHEIA
+        // ==========================================
         function toggleFullScreen() {
             if (!document.fullscreenElement) {
                 document.documentElement.requestFullscreen().catch(err => {
-                    console.log(`Erro ao tentar entrar em tela cheia: ${err.message}`);
+                    console.log(`Erro ao tentar entrar em tela cheia`);
                 });
             } else {
                 document.exitFullscreen();
