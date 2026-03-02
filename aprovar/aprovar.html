@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>buzzbe | Apresentação</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-dark: #0b1426;       
+            --bg-light: #152238;      
+            --brand-blue: #4285F4;    
+            --brand-blue-hover: #2b6ce0;
+            --primary: #ffffff;
+            --accent: #000000;
+            --transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            background: radial-gradient(circle at top left, var(--bg-light), var(--bg-dark) 80%);
+            color: var(--primary);
+        }
+
+        /* Barra superior */
+        .topbar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            background: transparent;
+            z-index: 10;
+            transition: transform var(--transition);
+        }
+
+        .logo {
+            color: var(--brand-blue);
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -1px; 
+            display: flex;
+            align-items: center;
+        }
+
+        .actions {
+            display: flex;
+            gap: 16px;
+        }
+
+        .actions button {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 50px; 
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .open-figma {
+            background: var(--brand-blue);
+            color: var(--primary);
+            box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3);
+        }
+
+        .fullscreen-btn {
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid rgba(255, 255, 255, 0.3) !important;
+        }
+
+        .actions button:hover {
+            transform: translateY(-2px);
+        }
+
+        .open-figma:hover {
+            background: var(--brand-blue-hover);
+            box-shadow: 0 6px 20px rgba(66, 133, 244, 0.4);
+        }
+
+        .fullscreen-btn:hover {
+            border-color: var(--primary) !important;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Dica de atalho (Spacebar) */
+        .shortcut-hint {
+            position: absolute;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 13px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px 20px;
+            border-radius: 30px;
+            backdrop-filter: blur(5px);
+            z-index: 5;
+            transition: opacity var(--transition);
+            pointer-events: none;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+        }
+
+        /* Container da Apresentação */
+        .presentation {
+            position: absolute;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            height: calc(100vh - 70px);
+            padding: 0 40px 40px 40px;
+            transition: all var(--transition);
+        }
+
+        /* Galeria de Imagens */
+        .slider-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            /* ALTERADO: Fundo agora é a cor escura institucional */
+            background: var(--bg-dark);
+            border-radius: 12px;
+            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: border-radius var(--transition);
+        }
+
+        .slider-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Garante que a imagem não seja cortada */
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .slider-container img.active {
+            opacity: 1;
+        }
+
+        /* Botões de navegação dos slides */
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 3;
+            transition: background 0.3s ease, transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-arrow:hover {
+            background: var(--brand-blue);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .prev-btn { left: 20px; }
+        .next-btn { right: 20px; }
+
+        /* Contador de slides */
+        .slide-counter {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            z-index: 3;
+        }
+
+        /* Loader */
+        .loader {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* ALTERADO: Fundo do loader agora é escuro e semitransparente */
+            background: rgba(11, 20, 38, 0.9);
+            z-index: 4;
+            transition: opacity 0.4s ease;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(66, 133, 244, 0.1);
+            border-top: 4px solid var(--brand-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Botão flutuante para sair do modo apresentação */
+        .exit-presentation {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        /* ====== MODO APRESENTAÇÃO ====== */
+        .presentation-mode .topbar {
+            transform: translateY(-100%);
+        }
+
+        .presentation-mode .presentation {
+            top: 0;
+            height: 100vh;
+            padding: 0; 
+        }
+
+        .presentation-mode .slider-container {
+            border-radius: 0; 
+        }
+
+        .presentation-mode .shortcut-hint {
+            opacity: 0; 
+        }
+
+        .presentation-mode .exit-presentation {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        @media (max-width: 768px) {
+            .topbar { padding: 0 20px; }
+            .presentation { padding: 0 20px 20px 20px; }
+            .shortcut-hint { display: none; }
+            .actions button span { display: none; }
+            .actions button { padding: 10px; border-radius: 8px; }
+            .nav-arrow { width: 40px; height: 40px; font-size: 18px; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="topbar">
+        <div class="logo">buzzbe</div>
+        <div class="actions">
+            <button class="open-figma" onclick="alert('Funcionalidade a ser implementada')" title="Baixar PDF">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                <span>Baixar PDF</span>
+            </button>
+            <button id="fsBtn" class="fullscreen-btn" onclick="toggleFullScreen()" title="Tela Cheia">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+                <span>Fullscreen</span>
+            </button>
+        </div>
+    </header>
+
+    <div class="shortcut-hint">
+        <strong>Espaço:</strong> Modo Apresentação <br>
+        <strong>Setas (← / →):</strong> Navegar
+    </div>
+    
+    <button class="exit-presentation" onclick="togglePresentationMode()">Sair da Apresentação</button>
+
+    <main class="presentation">
+        <div class="slider-container" id="slider">
+            <div class="loader" id="loader">
+                <div class="spinner"></div>
+            </div>
+
+            <img id="slideImage" src="" alt="Slide da Apresentação" onload="hideLoader()" onerror="handleError()">
+
+            <button class="nav-arrow prev-btn" onclick="prevSlide()">&#10094;</button>
+            <button class="nav-arrow next-btn" onclick="nextSlide()">&#10095;</button>
+
+            <div class="slide-counter" id="counter">1 / 1</div>
+        </div>
+    </main>
+
+    <script>
+        // ==========================================
+        // Usando caminhos relativos (com barra normal '/')
+        // O arquivo HTML deve estar salvo na pasta Downloads!
+        // ==========================================
+        const slides = [
+            "slides/slide1.png",
+            "slides/slide2.png",
+            "slides/slide3.png",
+            "slides/slide4.png",
+            "slides/slide5.png",
+            "slides/slide6.png",
+            "slides/slide7.png",
+            "slides/slide8.png"
+        ];
+
+        let currentIndex = 0;
+        const imgElement = document.getElementById("slideImage");
+        const loader = document.getElementById("loader");
+        const counterElement = document.getElementById("counter");
+
+        function loadSlide(index) {
+            loader.style.display = "flex";
+            loader.style.opacity = "1";
+            imgElement.classList.remove("active");
+            
+            imgElement.src = slides[index];
+            counterElement.innerText = `${index + 1} / ${slides.length}`;
+        }
+
+        function hideLoader() {
+            loader.style.opacity = "0";
+            setTimeout(() => loader.style.display = "none", 400);
+            imgElement.classList.add("active");
+        }
+
+        // Função extra caso a imagem não seja encontrada (ajuda a debugar)
+        function handleError() {
+            hideLoader();
+            console.error("Imagem não encontrada: " + imgElement.src);
+            alert("Erro: A imagem " + slides[currentIndex] + " não foi encontrada. Verifique se as imagens estão na mesma pasta que o arquivo HTML.");
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % slides.length; 
+            loadSlide(currentIndex);
+        }
+
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + slides.length) % slides.length; 
+            loadSlide(currentIndex);
+        }
+
+        window.onload = () => loadSlide(currentIndex);
+
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.log(`Erro ao tentar entrar em tela cheia: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        function togglePresentationMode() {
+            document.body.classList.toggle("presentation-mode");
+        }
+
+        document.addEventListener("keydown", function(e) {
+            if (e.code === "Space") {
+                e.preventDefault();
+                togglePresentationMode();
+            }
+            if (e.code === "Escape" && document.body.classList.contains("presentation-mode")) {
+                document.body.classList.remove("presentation-mode");
+            }
+            if (e.code === "ArrowRight") {
+                nextSlide();
+            }
+            if (e.code === "ArrowLeft") {
+                prevSlide();
+            }
+        });
+    </script>
+
+</body>
+</html>
