@@ -1,0 +1,624 @@
+import React, { useState, useEffect, useRef } from 'react';
+import { 
+  LayoutDashboard, 
+  PenTool, 
+  Bookmark, 
+  Settings, 
+  Copy, 
+  Check, 
+  Loader2, 
+  Plus, 
+  Trash2, 
+  Menu, 
+  X,
+  Sparkles,
+  Search,
+  Facebook
+} from 'lucide-react';
+
+// --- MOCK BACKEND (SIMULAÇÃO DE IA) ---
+const generateMockAds = (produto, plataforma, funil, idioma) => {
+  const isPt = idioma === 'pt';
+  const prod = produto || (isPt ? 'Seu Produto' : 'Your Product');
+
+  // Templates baseados no funil
+  const templates = {
+    topo: {
+      titles: isPt 
+        ? [`Descubra o segredo do ${prod}`, `Como resolver seus problemas com ${prod}`, `Conheça o novo ${prod}`] 
+        : [`Discover the secret of ${prod}`, `How to solve your problems with ${prod}`, `Meet the new ${prod}`],
+      descGoogle: isPt
+        ? [`Aprenda tudo sobre ${prod} hoje.`, `O guia definitivo para iniciantes em ${prod}.`, `Veja como ${prod} pode mudar sua rotina.`]
+        : [`Learn all about ${prod} today.`, `The ultimate beginner's guide to ${prod}.`, `See how ${prod} can change your routine.`],
+      copiesMeta: isPt
+        ? [
+            `Cansado de tentar de tudo e não ter resultados? O ${prod} chegou para revolucionar a forma como você lida com seus desafios diários. Clique no link e descubra como começar hoje mesmo!`,
+            `Você sabia que 80% das pessoas falham ao tentar sem ajuda? Com o ${prod}, você tem o atalho perfeito. Assista ao nosso vídeo gratuito e entenda o porquê.`
+          ]
+        : [
+            `Tired of trying everything and getting no results? ${prod} is here to revolutionize how you handle daily challenges. Click the link to discover how to start today!`,
+            `Did you know 80% of people fail without help? With ${prod}, you have the perfect shortcut. Watch our free video and understand why.`
+          ],
+      keywords: [`o que é ${prod}`, `como funciona ${prod}`, `${prod} dicas`, `tutorial ${prod}`],
+      creatives: isPt
+        ? ["Imagem de uma pessoa frustrada antes do produto, sorrindo depois.", "Vídeo curto (Reels/TikTok) de 15s mostrando o problema que o produto resolve.", "Carrossel de 3 imagens com mitos e verdades sobre o nicho."]
+        : ["Image of a frustrated person before the product, smiling after.", "Short 15s video showing the problem the product solves.", "Carousel of 3 images with myths and facts about the niche."]
+    },
+    meio: {
+      titles: isPt 
+        ? [`${prod} vs Concorrentes`, `Por que escolher o ${prod}?`, `Benefícios exclusivos do ${prod}`] 
+        : [`${prod} vs Competitors`, `Why choose ${prod}?`, `Exclusive benefits of ${prod}`],
+      descGoogle: isPt
+        ? [`Compare e comprove. ${prod} é a melhor escolha.`, `Funcionalidades exclusivas que só o ${prod} tem.`, `Veja os depoimentos de quem já usa ${prod}.`]
+        : [`Compare and see. ${prod} is the best choice.`, `Exclusive features only ${prod} has.`, `See testimonials from those who use ${prod}.`],
+      copiesMeta: isPt
+        ? [
+            `Ainda em dúvida se o ${prod} é para você? Veja o que nossos clientes estão dizendo. Mais de 10.000 pessoas já transformaram suas vidas com o nosso método. Acesse o site e veja os casos de sucesso!`,
+            `Não aceite imitações. O ${prod} é o único no mercado com tecnologia exclusiva que garante resultados 3x mais rápidos. Arraste para cima e saiba mais.`
+          ]
+        : [
+            `Still doubting if ${prod} is for you? See what our clients are saying. Over 10,000 people have transformed their lives. Visit the site and see the success stories!`,
+            `Accept no imitations. ${prod} is the only one in the market with exclusive tech guaranteeing 3x faster results. Swipe up to learn more.`
+          ],
+      keywords: [`${prod} é bom`, `${prod} vale a pena`, `benefícios ${prod}`, `${prod} depoimentos`, `comparativo ${prod}`],
+      creatives: isPt
+        ? ["Vídeo de depoimento de cliente real usando o produto.", "Gráfico comparativo simples (Nós vs Eles).", "Print de tela de avaliações 5 estrelas do produto."]
+        : ["Video testimonial of a real client using the product.", "Simple comparative chart (Us vs Them).", "Screenshot of 5-star reviews of the product."]
+    },
+    fundo: {
+      titles: isPt 
+        ? [`Compre ${prod} com Desconto`, `Oferta Exclusiva: ${prod}`, `Últimas Horas: ${prod}`] 
+        : [`Buy ${prod} with Discount`, `Exclusive Offer: ${prod}`, `Last Hours: ${prod}`],
+      descGoogle: isPt
+        ? [`Aproveite 50% de desconto no ${prod} hoje.`, `Garantia de 30 dias ou seu dinheiro de volta. Compre já.`, `Estoque limitado. Garanta seu ${prod} agora mesmo.`]
+        : [`Enjoy 50% off ${prod} today.`, `30-day money-back guarantee. Buy now.`, `Limited stock. Secure your ${prod} right now.`],
+      copiesMeta: isPt
+        ? [
+            `🚨 ÚLTIMAS HORAS! O desconto de 50% no ${prod} acaba à meia-noite. Se você quer garantir o seu com o menor preço do ano, a hora é agora. Clique no botão abaixo e finalize sua compra!`,
+            `Você não tem nada a perder! Adquira o ${prod} agora e se não gostar em 30 dias, devolvemos 100% do seu dinheiro. Clique em 'Saiba Mais' e garanta sua vaga.`
+          ]
+        : [
+            `🚨 LAST HOURS! The 50% discount on ${prod} ends at midnight. If you want to secure yours at the lowest price of the year, the time is now. Click the button below to buy!`,
+            `You have nothing to lose! Get ${prod} now and if you don't like it in 30 days, we'll refund 100% of your money. Click 'Learn More' and secure your spot.`
+          ],
+      keywords: [`comprar ${prod}`, `${prod} preço`, `${prod} desconto`, `${prod} promoção`, `${prod} cupom`],
+      creatives: isPt
+        ? ["Imagem com fundo chamativo (amarelo/vermelho) escrito '50% OFF' e o produto.", "Vídeo do fundador fazendo uma oferta irresistível com contagem regressiva.", "Imagem focada na garantia de 30 dias (Selo de Garantia)."]
+        : ["Image with striking background (yellow/red) saying '50% OFF' and the product.", "Video of the founder making an irresistible offer with a countdown.", "Image focused on the 30-day guarantee (Guarantee Seal)."]
+    }
+  };
+
+  const data = templates[funil];
+  
+  let result = {
+    titulos: [],
+    descricoes: [],
+    copies: [],
+    keywords: [],
+    criativos: []
+  };
+
+  if (plataforma === 'google' || plataforma === 'ambos') {
+    result.titulos = [...result.titulos, ...data.titles];
+    result.descricoes = [...data.descGoogle];
+    result.keywords = [...data.keywords];
+  }
+  
+  if (plataforma === 'meta' || plataforma === 'ambos') {
+    if (plataforma === 'meta') {
+      result.titulos = [...data.titles]; // Google titles serve well for Meta primary text headers too
+    }
+    result.copies = [...data.copiesMeta];
+    result.criativos = [...data.creatives];
+  }
+
+  return result;
+};
+
+// --- COMPONENTES AUXILIARES ---
+const CopyButton = ({ text }) => {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    // Usando execCommand para garantir funcionamento em iframes
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.select();
+    try {
+      document.execCommand('copy');
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error('Falha ao copiar', err);
+    }
+    document.body.removeChild(textArea);
+  };
+
+  return (
+    <button 
+      onClick={handleCopy}
+      className="p-2 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-md transition-colors"
+      title="Copiar"
+    >
+      {copied ? <Check size={16} className="text-green-500" /> : <Copy size={16} />}
+    </button>
+  );
+};
+
+const ContentCard = ({ title, content, badge }) => (
+  <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow group">
+    <div className="flex justify-between items-start mb-2">
+      <div className="flex items-center gap-2">
+        <h4 className="font-semibold text-gray-800 text-sm">{title}</h4>
+        {badge && (
+          <span className="px-2 py-0.5 text-xs font-medium bg-gray-100 text-gray-600 rounded-full">
+            {badge}
+          </span>
+        )}
+      </div>
+      <CopyButton text={content} />
+    </div>
+    <p className="text-gray-600 text-sm leading-relaxed whitespace-pre-wrap">{content}</p>
+  </div>
+);
+
+// --- APP PRINCIPAL ---
+export default function App() {
+  const [activeMenu, setActiveMenu] = useState('create');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  
+  // Form State
+  const [formData, setFormData] = useState({
+    produto: '',
+    plataforma: 'ambos',
+    funil: 'meio',
+    idioma: 'pt'
+  });
+  
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [generatedData, setGeneratedData] = useState(null);
+  const [activeTab, setActiveTab] = useState('titulos');
+  
+  // Saved Ads State
+  const [savedAds, setSavedAds] = useState([]);
+
+  useEffect(() => {
+    const saved = localStorage.getItem('@adalchemy_ads');
+    if (saved) {
+      setSavedAds(JSON.parse(saved));
+    }
+  }, []);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleGenerate = (e) => {
+    e.preventDefault();
+    if (!formData.produto) return;
+
+    setIsGenerating(true);
+    setGeneratedData(null);
+
+    // Simular delay de API
+    setTimeout(() => {
+      const data = generateMockAds(formData.produto, formData.plataforma, formData.funil, formData.idioma);
+      setGeneratedData(data);
+      
+      // Auto-select first available tab based on platform
+      if (formData.plataforma === 'google') setActiveTab('titulos');
+      else if (formData.plataforma === 'meta') setActiveTab('copies');
+      else setActiveTab('titulos');
+
+      setIsGenerating(false);
+    }, 1500);
+  };
+
+  const handleSaveAds = () => {
+    if (!generatedData) return;
+    
+    const newSaved = {
+      id: Date.now(),
+      date: new Date().toLocaleDateString(),
+      config: { ...formData },
+      data: generatedData
+    };
+    
+    const updated = [newSaved, ...savedAds];
+    setSavedAds(updated);
+    localStorage.setItem('@adalchemy_ads', JSON.stringify(updated));
+    alert('Anúncios salvos com sucesso!');
+  };
+
+  const handleDeleteSaved = (id) => {
+    const updated = savedAds.filter(ad => ad.id !== id);
+    setSavedAds(updated);
+    localStorage.setItem('@adalchemy_ads', JSON.stringify(updated));
+  };
+
+  const renderTabs = () => {
+    if (!generatedData) return null;
+
+    const tabs = [];
+    if (generatedData.titulos.length > 0) tabs.push({ id: 'titulos', label: 'Títulos' });
+    if (generatedData.descricoes.length > 0) tabs.push({ id: 'descricoes', label: 'Descrições' });
+    if (generatedData.copies.length > 0) tabs.push({ id: 'copies', label: 'Copies' });
+    if (generatedData.keywords.length > 0) tabs.push({ id: 'keywords', label: 'Keywords' });
+    if (generatedData.criativos.length > 0) tabs.push({ id: 'criativos', label: 'Criativos' });
+
+    return (
+      <div className="flex overflow-x-auto border-b border-gray-200 mb-6 pb-[1px] scrollbar-hide">
+        {tabs.map(tab => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)}
+            className={`px-4 py-2 text-sm font-medium whitespace-nowrap border-b-2 transition-colors ${
+              activeTab === tab.id
+                ? 'border-indigo-600 text-indigo-600'
+                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+            }`}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+    );
+  };
+
+  const renderTabContent = () => {
+    if (!generatedData) return null;
+
+    const dataMap = {
+      titulos: { data: generatedData.titulos, label: 'Título', platform: 'Meta/Google' },
+      descricoes: { data: generatedData.descricoes, label: 'Descrição', platform: 'Google Ads' },
+      copies: { data: generatedData.copies, label: 'Copy', platform: 'Meta Ads' },
+      keywords: { data: generatedData.keywords, label: 'Keyword', platform: 'Google Ads' },
+      criativos: { data: generatedData.criativos, label: 'Ideia de Criativo', platform: 'Meta Ads' }
+    };
+
+    const currentData = dataMap[activeTab];
+
+    if (!currentData || currentData.data.length === 0) return <p className="text-gray-500 text-sm">Nenhum dado gerado para esta aba.</p>;
+
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {currentData.data.map((item, idx) => (
+          <ContentCard 
+            key={idx} 
+            title={`${currentData.label} ${idx + 1}`} 
+            content={item} 
+            badge={currentData.platform}
+          />
+        ))}
+      </div>
+    );
+  };
+
+  const SidebarItem = ({ icon: Icon, label, id }) => (
+    <button
+      onClick={() => { setActiveMenu(id); setIsMobileMenuOpen(false); }}
+      className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+        activeMenu === id 
+          ? 'bg-indigo-50 text-indigo-700' 
+          : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+      }`}
+    >
+      <Icon size={18} className={activeMenu === id ? 'text-indigo-600' : 'text-gray-400'} />
+      {label}
+    </button>
+  );
+
+  return (
+    <div className="flex h-screen bg-gray-50 font-sans overflow-hidden">
+      
+      {/* Mobile Header & Overlay */}
+      <div className="md:hidden fixed top-0 left-0 right-0 h-16 bg-white border-b border-gray-200 z-20 flex items-center justify-between px-4">
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
+            <Sparkles size={16} className="text-white" />
+          </div>
+          <span className="font-bold text-gray-900">AdAlchemy AI</span>
+        </div>
+        <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="p-2 text-gray-600">
+          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </div>
+
+      {/* Sidebar */}
+      <aside className={`
+        fixed md:static inset-y-0 left-0 z-10 w-64 bg-white border-r border-gray-200 transform transition-transform duration-200 ease-in-out
+        ${isMobileMenuOpen ? 'translate-x-0 pt-16' : '-translate-x-full pt-0'} md:translate-x-0 md:pt-0
+        flex flex-col
+      `}>
+        <div className="h-16 hidden md:flex items-center gap-3 px-6 border-b border-gray-100">
+          <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
+            <Sparkles size={16} className="text-white" />
+          </div>
+          <span className="font-bold text-lg text-gray-900 tracking-tight">AdAlchemy AI</span>
+        </div>
+        
+        <nav className="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
+          <SidebarItem icon={LayoutDashboard} label="Dashboard" id="dashboard" />
+          <SidebarItem icon={PenTool} label="Criar Anúncios" id="create" />
+          <SidebarItem icon={Bookmark} label="Meus Anúncios" id="saved" />
+          <SidebarItem icon={Settings} label="Configurações" id="settings" />
+        </nav>
+
+        <div className="p-4 border-t border-gray-100">
+          <div className="flex items-center gap-3 px-2">
+            <div className="w-8 h-8 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-sm">
+              JS
+            </div>
+            <div className="flex flex-col">
+              <span className="text-sm font-medium text-gray-900">João Silva</span>
+              <span className="text-xs text-gray-500">Plano Pro</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      {/* Main Content */}
+      <main className="flex-1 flex flex-col h-full overflow-hidden w-full pt-16 md:pt-0">
+        
+        <header className="h-16 bg-white border-b border-gray-200 hidden md:flex items-center justify-between px-8 shrink-0">
+          <h1 className="text-xl font-semibold text-gray-800 capitalize">
+            {activeMenu === 'create' ? 'Criar Nova Campanha' : activeMenu}
+          </h1>
+          <div className="flex items-center gap-4">
+            <button className="p-2 text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-50">
+              <Search size={20} />
+            </button>
+          </div>
+        </header>
+
+        <div className="flex-1 overflow-y-auto p-4 md:p-8">
+          <div className="max-w-6xl mx-auto">
+
+            {/* VIEWS */}
+            {activeMenu === 'dashboard' && (
+              <div className="space-y-6">
+                <h2 className="text-2xl font-bold text-gray-800">Visão Geral</h2>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                    <div className="text-gray-500 text-sm font-medium mb-2">Anúncios Gerados</div>
+                    <div className="text-3xl font-bold text-gray-900">{savedAds.length * 5 + 24}</div>
+                  </div>
+                  <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                    <div className="text-gray-500 text-sm font-medium mb-2">Campanhas Salvas</div>
+                    <div className="text-3xl font-bold text-gray-900">{savedAds.length}</div>
+                  </div>
+                  <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                    <div className="text-gray-500 text-sm font-medium mb-2">Plataforma Favorita</div>
+                    <div className="text-3xl font-bold text-gray-900 flex items-center gap-2">
+                      Meta Ads <Facebook size={24} className="text-blue-600" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {activeMenu === 'settings' && (
+              <div className="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm max-w-2xl">
+                <h2 className="text-xl font-bold text-gray-800 mb-6">Configurações da Conta</h2>
+                <p className="text-gray-500 mb-4">Em breve você poderá conectar suas contas de anúncios e configurar o tom de voz da IA.</p>
+              </div>
+            )}
+
+            {activeMenu === 'saved' && (
+              <div className="space-y-6">
+                <div className="flex items-center justify-between">
+                  <h2 className="text-2xl font-bold text-gray-800">Campanhas Salvas</h2>
+                </div>
+                {savedAds.length === 0 ? (
+                  <div className="text-center py-20 bg-white rounded-2xl border border-gray-200 border-dashed">
+                    <Bookmark size={48} className="mx-auto text-gray-300 mb-4" />
+                    <p className="text-gray-500">Você ainda não salvou nenhuma campanha.</p>
+                    <button 
+                      onClick={() => setActiveMenu('create')}
+                      className="mt-4 text-indigo-600 font-medium hover:text-indigo-700"
+                    >
+                      Criar primeiro anúncio &rarr;
+                    </button>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {savedAds.map(ad => (
+                      <div key={ad.id} className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
+                        <div className="flex justify-between items-start mb-4">
+                          <div>
+                            <h3 className="font-bold text-lg text-gray-900">{ad.config.produto}</h3>
+                            <p className="text-xs text-gray-500 mt-1">Gerado em {ad.date}</p>
+                          </div>
+                          <button 
+                            onClick={() => handleDeleteSaved(ad.id)}
+                            className="p-2 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-md transition-colors"
+                            title="Excluir"
+                          >
+                            <Trash2 size={16} />
+                          </button>
+                        </div>
+                        <div className="flex flex-wrap gap-2 mb-4">
+                          <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-md uppercase">
+                            {ad.config.plataforma}
+                          </span>
+                          <span className="px-2 py-1 bg-indigo-50 text-indigo-700 text-xs font-medium rounded-md uppercase">
+                            Funil: {ad.config.funil}
+                          </span>
+                        </div>
+                        <p className="text-sm text-gray-600 line-clamp-2">
+                          {ad.data.copies[0] || ad.data.descricoes[0] || 'Conteúdo gerado...'}
+                        </p>
+                        <button 
+                          onClick={() => {
+                            setGeneratedData(ad.data);
+                            setFormData(ad.config);
+                            setActiveMenu('create');
+                            setActiveTab(ad.config.plataforma === 'google' ? 'titulos' : 'copies');
+                          }}
+                          className="mt-4 w-full py-2 bg-gray-50 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-100 transition-colors"
+                        >
+                          Ver Campanha Completa
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {activeMenu === 'create' && (
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                
+                {/* Lateral do Formulário */}
+                <div className="lg:col-span-4 space-y-6">
+                  <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
+                    <h2 className="text-lg font-bold text-gray-800 mb-6 flex items-center gap-2">
+                      <Sparkles size={20} className="text-indigo-600" />
+                      Setup da Campanha
+                    </h2>
+                    
+                    <form onSubmit={handleGenerate} className="space-y-5">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                          Nome do Produto / Serviço *
+                        </label>
+                        <input
+                          type="text"
+                          name="produto"
+                          value={formData.produto}
+                          onChange={handleInputChange}
+                          placeholder="Ex: Curso de Inglês VIP"
+                          className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none"
+                          required
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                          Plataforma de Anúncio
+                        </label>
+                        <select
+                          name="plataforma"
+                          value={formData.plataforma}
+                          onChange={handleInputChange}
+                          className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none"
+                        >
+                          <option value="ambos">Meta Ads + Google Ads</option>
+                          <option value="meta">Apenas Meta Ads</option>
+                          <option value="google">Apenas Google Ads</option>
+                        </select>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                          Estágio do Funil
+                        </label>
+                        <select
+                          name="funil"
+                          value={formData.funil}
+                          onChange={handleInputChange}
+                          className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none"
+                        >
+                          <option value="topo">Topo (Atração/Descoberta)</option>
+                          <option value="meio">Meio (Consideração/Comparação)</option>
+                          <option value="fundo">Fundo (Conversão/Oferta)</option>
+                        </select>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                          Idioma
+                        </label>
+                        <select
+                          name="idioma"
+                          value={formData.idioma}
+                          onChange={handleInputChange}
+                          className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none"
+                        >
+                          <option value="pt">Português (BR)</option>
+                          <option value="en">Inglês (US)</option>
+                        </select>
+                      </div>
+
+                      <button
+                        type="submit"
+                        disabled={isGenerating || !formData.produto}
+                        className="w-full mt-6 bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
+                      >
+                        {isGenerating ? (
+                          <>
+                            <Loader2 size={18} className="animate-spin" />
+                            Gerando...
+                          </>
+                        ) : (
+                          <>
+                            <Sparkles size={18} />
+                            Gerar Anúncios
+                          </>
+                        )}
+                      </button>
+                    </form>
+                  </div>
+                </div>
+
+                {/* Área de Resultados */}
+                <div className="lg:col-span-8 flex flex-col">
+                  {generatedData ? (
+                    <div className="bg-transparent flex-1 flex flex-col">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-2">
+                        <h3 className="text-xl font-bold text-gray-800">Resultados da IA</h3>
+                        <div className="flex items-center gap-2">
+                          <button
+                            onClick={() => {
+                              const textToCopy = JSON.stringify(generatedData, null, 2);
+                              const textArea = document.createElement("textarea");
+                              textArea.value = textToCopy;
+                              document.body.appendChild(textArea);
+                              textArea.select();
+                              document.execCommand('copy');
+                              document.body.removeChild(textArea);
+                              alert('Todo o conteúdo copiado para a área de transferência!');
+                            }}
+                            className="flex items-center gap-2 px-3 py-1.5 bg-white border border-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 transition-colors shadow-sm"
+                          >
+                            <Copy size={16} /> Copiar Tudo
+                          </button>
+                          <button
+                            onClick={handleSaveAds}
+                            className="flex items-center gap-2 px-3 py-1.5 bg-indigo-50 border border-indigo-100 text-indigo-700 text-sm font-medium rounded-lg hover:bg-indigo-100 transition-colors shadow-sm"
+                          >
+                            <Bookmark size={16} /> Salvar Campanha
+                          </button>
+                        </div>
+                      </div>
+                      
+                      {renderTabs()}
+                      
+                      <div className="flex-1 pb-10">
+                        {renderTabContent()}
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex-1 bg-white rounded-2xl border border-gray-200 border-dashed flex flex-col items-center justify-center p-12 text-center min-h-[400px]">
+                      <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mb-4">
+                        <PenTool size={32} className="text-gray-300" />
+                      </div>
+                      <h3 className="text-lg font-medium text-gray-900 mb-2">Área de Criação</h3>
+                      <p className="text-gray-500 max-w-sm">
+                        Preencha as informações na lateral e clique em "Gerar Anúncios" para a IA criar sua campanha completa.
+                      </p>
+                    </div>
+                  )}
+                </div>
+
+              </div>
+            )}
+
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+}
