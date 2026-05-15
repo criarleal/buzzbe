@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vitamin Factory – Suplementos Direto da Fábrica em Curitiba</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #F05A22;
+    --orange-dark: #C8431A;
+    --orange-light: #FF7A45;
+    --white: #FFFFFF;
+    --gray-50: #F8F8F6;
+    --gray-100: #F0EFEC;
+    --gray-200: #E4E2DC;
+    --gray-400: #9E9B94;
+    --gray-600: #5C5A55;
+    --gray-800: #2A2926;
+    --black: #1A1917;
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.07);
+    --shadow-md: 0 6px 24px rgba(0,0,0,0.10);
+    --shadow-lg: 0 16px 48px rgba(0,0,0,0.14);
+    --shadow-orange: 0 8px 32px rgba(240,90,34,0.25);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--gray-50);
+    color: var(--gray-800);
+    overflow-x: hidden;
+  }
+
+  /* ─── BARRA SUPERIOR ─── */
+  .top-bar {
+    background: var(--gray-800);
+    color: var(--gray-200);
+    font-family: 'Barlow', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: center;
+    padding: 9px 20px;
+    letter-spacing: 0.02em;
+  }
+  .top-bar span { color: var(--orange-light); font-weight: 700; }
+
+  /* ─── HERO BANNER ─── */
+  .hero {
+    background: var(--gray-100);
+    background-image:
+      radial-gradient(ellipse 80% 60% at 60% 50%, rgba(240,90,34,0.07) 0%, transparent 70%),
+      url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e0ddd6' fill-opacity='0.5'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 64px 32px 56px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--orange);
+    color: white;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
+  .hero-badge::before {
+    content: '';
+    display: inline-block;
+    width: 6px; height: 6px;
+    background: white;
+    border-radius: 50%;
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.7); }
+  }
+
+  .hero-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(38px, 5vw, 62px);
+    line-height: 1.0;
+    color: var(--black);
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .hero-title em {
+    font-style: normal;
+    color: var(--orange);
+  }
+
+  .hero-sub {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--gray-600);
+    line-height: 1.65;
+    margin-bottom: 32px;
+    max-width: 440px;
+  }
+
+  .hero-cta-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--orange);
+    color: white;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 16px 32px;
+    border-radius: 6px;
+    text-decoration: none;
+    box-shadow: var(--shadow-orange);
+    transition: all 0.22s ease;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-primary:hover {
+    background: var(--orange-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(240,90,34,0.35);
+  }
+  .btn-primary svg { flex-shrink: 0; }
+
+  .hero-trust {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-600);
+  }
+  .trust-icon {
+    width: 18px; height: 18px;
+    color: var(--orange);
+    flex-shrink: 0;
+  }
+
+  .hero-visual {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .hero-product-card {
+    background: white;
+    border-radius: 20px;
+    padding: 40px 36px;
+    box-shadow: var(--shadow-lg);
+    text-align: center;
+    position: relative;
+    max-width: 340px;
+    width: 100%;
+  }
+  .hero-product-card::before {
+    content: '';
+    position: absolute;
+    top: -2px; left: -2px; right: -2px; bottom: -2px;
+    border-radius: 22px;
+    background: linear-gradient(135deg, var(--orange) 0%, transparent 60%);
+    z-index: -1;
+    opacity: 0.3;
+  }
+  .combo-label {
+    background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+    color: white;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 5px 16px;
+    border-radius: 100px;
+    display: inline-block;
+    margin-bottom: 18px;
+  }
+  .combo-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    text-transform: uppercase;
+    color: var(--black);
+    margin-bottom: 4px;
+    line-height: 1.2;
+  }
+  .combo-desc { font-size: 13px; color: var(--gray-400); margin-bottom: 20px; }
+
+  .price-block { margin-bottom: 22px; }
+  .price-old {
+    font-size: 14px;
+    color: var(--gray-400);
+    text-decoration: line-through;
+    font-weight: 500;
+    margin-bottom: 2px;
+  }
+  .price-pix-label {
+    font-size: 12px;
+    color: var(--gray-600);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+  .price-main {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 46px;
+    color: var(--orange);
+    line-height: 1;
+  }
+  .price-main sup { font-size: 22px; vertical-align: super; }
+  .price-credit {
+    font-size: 12px;
+    color: var(--gray-400);
+    margin-top: 4px;
+  }
+
+  .hero-emojis {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 22px;
+    font-size: 32px;
+  }
+
+  /* ─── SEÇÃO LOGO / CONFIANÇA ─── */
+  .brand-strip {
+    background: white;
+    border-top: 1px solid var(--gray-200);
+    border-bottom: 1px solid var(--gray-200);
+    padding: 20px 32px;
+  }
+  .brand-strip-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .brand-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .brand-stat-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 28px;
+    color: var(--orange);
+    line-height: 1;
+  }
+  .brand-stat-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gray-600);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .divider-v {
+    width: 1px;
+    height: 40px;
+    background: var(--gray-200);
+  }
+
+  /* ─── SEÇÃO COMBOS ─── */
+  section { padding: 72px 32px; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+
+  .section-header { margin-bottom: 48px; }
+  .section-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--orange);
+    display: block;
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(30px, 4vw, 46px);
+    text-transform: uppercase;
+    color: var(--black);
+    line-height: 1.05;
+  }
+  .section-title em { font-style: normal; color: var(--orange); }
+  .section-sub {
+    font-size: 15px;
+    color: var(--gray-600);
+    margin-top: 12px;
+    max-width: 560px;
+    line-height: 1.6;
+  }
+
+  /* ─── PRODUTOS GRID ─── */
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+  }
+
+  .product-card {
+    background: white;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    border: 1.5px solid var(--gray-200);
+    transition: all 0.25s ease;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: rgba(240,90,34,0.3);
+  }
+
+  .card-badge {
+    position: absolute;
+    top: 16px; left: 16px;
+    background: var(--orange);
+    color: white;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 4px;
+    z-index: 2;
+  }
+  .card-badge.highlight {
+    background: linear-gradient(135deg, #F05A22, #C8431A);
+    box-shadow: 0 4px 12px rgba(240,90,34,0.4);
+  }
+
+  .card-img {
+    width: 100%;
+    height: 200px;
+    background: var(--gray-100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 64px;
+    position: relative;
+    overflow: hidden;
+  }
+  .card-img::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 60px;
+    background: linear-gradient(to top, white, transparent);
+  }
+
+  .card-body {
+    padding: 20px 22px 24px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    text-transform: uppercase;
+    color: var(--black);
+    margin-bottom: 4px;
+    line-height: 1.15;
+  }
+  .card-desc {
+    font-size: 13px;
+    color: var(--gray-400);
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+
+  .card-prices {
+    margin-bottom: 18px;
+    flex: 1;
+  }
+  .card-price-old {
+    font-size: 13px;
+    color: var(--gray-400);
+    text-decoration: line-through;
+  }
+  .card-price-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    margin-top: 4px;
+  }
+  .pix-block { flex: 1; }
+  .pix-tag {
+    font-size: 10px;
+    font-weight: 700;
+    color: #2a9d2a;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    display: block;
+    margin-bottom: 1px;
+  }
+  .pix-price {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 34px;
+    color: var(--orange);
+    line-height: 1;
+  }
+  .pix-price sup { font-size: 16px; vertical-align: super; }
+  .credit-block {
+    text-align: right;
+  }
+  .credit-tag {
+    font-size: 10px;
+    color: var(--gray-400);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    display: block;
+    margin-bottom: 1px;
+  }
+  .credit-price {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--gray-600);
+  }
+
+  .card-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--orange);
+    color: white;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 16px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 14px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: none;
+    width: 100%;
+  }
+  .card-btn:hover {
+    background: var(--orange-dark);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-orange);
+  }
+
+  /* ─── FEATURED COMBO ─── */
+  .featured-combo {
+    background: var(--gray-100);
+    padding: 72px 32px;
+  }
+  .featured-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .combo-full-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 2px solid rgba(240,90,34,0.15);
+  }
+  .combo-full-left {
+    padding: 52px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .combo-full-right {
+    background: linear-gradient(135deg, #FFF5F0 0%, #FEE8DC 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px;
+    font-size: 96px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .combo-full-right::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(240,90,34,0.08);
+  }
+  .combo-full-right::after {
+    content: '';
+    position: absolute;
+    bottom: -30px; left: -30px;
+    width: 140px; height: 140px;
+    border-radius: 50%;
+    background: rgba(240,90,34,0.06);
+  }
+
+  .combo-tag-top {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(240,90,34,0.1);
+    color: var(--orange);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    width: fit-content;
+  }
+  .combo-big-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(28px, 3.5vw, 44px);
+    text-transform: uppercase;
+    color: var(--black);
+    line-height: 1.05;
+    margin-bottom: 8px;
+  }
+  .combo-big-sub {
+    font-size: 14px;
+    color: var(--gray-400);
+    margin-bottom: 28px;
+    line-height: 1.5;
+  }
+
+  .combo-price-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 20px;
+    margin-bottom: 28px;
+  }
+  .combo-pix {
+    display: flex;
+    flex-direction: column;
+  }
+  .combo-pix-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #2a9d2a;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 2px;
+  }
+  .combo-pix-value {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 56px;
+    color: var(--orange);
+    line-height: 1;
+  }
+  .combo-pix-value sup { font-size: 24px; vertical-align: super; }
+  .combo-credit-info { padding-bottom: 8px; }
+  .combo-credit-label {
+    font-size: 11px;
+    color: var(--gray-400);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .combo-credit-val {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--gray-600);
+  }
+  .combo-credit-val s {
+    font-size: 15px;
+    color: var(--gray-400);
+    font-weight: 400;
+    text-decoration: line-through;
+    margin-left: 6px;
+  }
+
+  .combo-features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+  .combo-feat {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-600);
+  }
+  .combo-feat-icon {
+    width: 20px; height: 20px;
+    background: rgba(240,90,34,0.1);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--orange);
+    flex-shrink: 0;
+    font-size: 11px;
+  }
+
+  /* ─── BENEFITS STRIP ─── */
+  .benefits-strip {
+    background: var(--orange);
+    padding: 48px 32px;
+  }
+  .benefits-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+  }
+  .benefit-item {
+    text-align: center;
+    color: white;
+  }
+  .benefit-icon {
+    font-size: 36px;
+    display: block;
+    margin-bottom: 10px;
+  }
+  .benefit-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 17px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 4px;
+  }
+  .benefit-desc {
+    font-size: 13px;
+    opacity: 0.85;
+    line-height: 1.5;
+  }
+
+  /* ─── CREATINA SOLO ─── */
+  .creatina-section { background: white; }
+
+  /* ─── PRÉ TREINO ─── */
+  .pretreino-section { background: var(--gray-50); }
+
+  /* ─── FAQ / SOBRE ─── */
+  .sobre-section {
+    background: var(--gray-100);
+    padding: 72px 32px;
+  }
+  .sobre-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .sobre-visual {
+    background: white;
+    border-radius: 16px;
+    padding: 48px 40px;
+    box-shadow: var(--shadow-md);
+    text-align: center;
+    border: 1.5px solid var(--gray-200);
+  }
+  .sobre-visual-icon { font-size: 72px; margin-bottom: 16px; display: block; }
+  .sobre-visual-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 28px;
+    text-transform: uppercase;
+    color: var(--black);
+    margin-bottom: 8px;
+  }
+  .sobre-visual-sub { font-size: 14px; color: var(--gray-400); line-height: 1.6; }
+  .sobre-visual-address {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--gray-200);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--gray-600);
+  }
+  .sobre-visual-address a {
+    color: var(--orange);
+    text-decoration: none;
+    font-weight: 700;
+  }
+
+  .faq-list { display: flex; flex-direction: column; gap: 14px; }
+  .faq-item {
+    background: white;
+    border-radius: 10px;
+    border: 1.5px solid var(--gray-200);
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .faq-item:hover { border-color: rgba(240,90,34,0.3); }
+  .faq-q {
+    padding: 16px 20px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--black);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    user-select: none;
+  }
+  .faq-q:hover { color: var(--orange); }
+  .faq-arrow {
+    width: 20px; height: 20px;
+    color: var(--orange);
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+  .faq-item.open .faq-arrow { transform: rotate(180deg); }
+  .faq-a {
+    display: none;
+    padding: 0 20px 16px;
+    font-size: 14px;
+    color: var(--gray-600);
+    line-height: 1.65;
+  }
+  .faq-item.open .faq-a { display: block; }
+
+  /* ─── CTA FINAL ─── */
+  .cta-final {
+    background: var(--gray-800);
+    padding: 80px 32px;
+    text-align: center;
+  }
+  .cta-final-inner { max-width: 680px; margin: 0 auto; }
+  .cta-final-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(32px, 5vw, 56px);
+    text-transform: uppercase;
+    color: white;
+    line-height: 1.05;
+    margin-bottom: 16px;
+  }
+  .cta-final-title em { color: var(--orange); font-style: normal; }
+  .cta-final-sub {
+    font-size: 16px;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 36px;
+    line-height: 1.6;
+  }
+  .cta-final-btns {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #25D366;
+    color: white;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 16px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    box-shadow: 0 8px 24px rgba(37,211,102,0.3);
+  }
+  .btn-whatsapp:hover {
+    background: #1da857;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(37,211,102,0.4);
+  }
+  .btn-secondary-light {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    color: white;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 15px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    border: 2px solid rgba(255,255,255,0.25);
+    transition: all 0.2s ease;
+  }
+  .btn-secondary-light:hover {
+    border-color: white;
+    background: rgba(255,255,255,0.08);
+  }
+
+  /* ─── RODAPÉ ─── */
+  .footer-simple {
+    background: var(--black);
+    padding: 28px 32px;
+    text-align: center;
+  }
+  .footer-simple-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .footer-brand {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 18px;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .footer-brand span { color: var(--orange); }
+  .footer-info {
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+  }
+  .footer-info a { color: var(--orange-light); text-decoration: none; }
+
+  /* ─── STICKY CTA MOBILE ─── */
+  .sticky-cta {
+    display: none;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: white;
+    padding: 12px 20px 16px;
+    box-shadow: 0 -4px 24px rgba(0,0,0,0.15);
+    z-index: 100;
+    border-top: 2px solid var(--orange);
+  }
+  .sticky-cta-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .sticky-cta-text { flex: 1; }
+  .sticky-cta-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 15px; text-transform: uppercase; color: var(--black); }
+  .sticky-cta-price { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 18px; color: var(--orange); }
+
+  /* ─── FLOATING WHATSAPP ─── */
+  .float-whatsapp {
+    position: fixed;
+    bottom: 28px; right: 28px;
+    z-index: 99;
+  }
+  .float-whatsapp a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px; height: 60px;
+    background: #25D366;
+    border-radius: 50%;
+    box-shadow: 0 8px 24px rgba(37,211,102,0.4);
+    transition: all 0.2s ease;
+  }
+  .float-whatsapp a:hover {
+    transform: scale(1.1);
+    box-shadow: 0 12px 32px rgba(37,211,102,0.5);
+  }
+  .float-whatsapp svg { width: 30px; height: 30px; fill: white; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    .hero-inner {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      padding: 48px 20px 40px;
+      text-align: center;
+    }
+    .hero-cta-group { align-items: center; }
+    .hero-trust { justify-content: center; }
+    .hero-sub { margin: 0 auto 32px; }
+
+    .brand-strip-inner { gap: 24px; }
+    .divider-v { display: none; }
+
+    .benefits-inner { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+
+    .combo-full-card { grid-template-columns: 1fr; }
+    .combo-full-right { padding: 40px; font-size: 72px; min-height: 200px; }
+    .combo-full-left { padding: 36px 28px; }
+
+    .sobre-inner { grid-template-columns: 1fr; gap: 36px; }
+
+    section { padding: 56px 20px; }
+    .featured-combo { padding: 56px 20px; }
+    .benefits-strip { padding: 40px 20px; }
+    .cta-final { padding: 64px 20px; }
+
+    .sticky-cta { display: block; }
+    .float-whatsapp { bottom: 90px; right: 16px; }
+
+    .products-grid { grid-template-columns: 1fr; }
+
+    .footer-simple-inner { justify-content: center; flex-direction: column; text-align: center; }
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-text-col > * { animation: fadeUp 0.6s ease backwards; }
+  .hero-text-col > *:nth-child(1) { animation-delay: 0.1s; }
+  .hero-text-col > *:nth-child(2) { animation-delay: 0.2s; }
+  .hero-text-col > *:nth-child(3) { animation-delay: 0.3s; }
+  .hero-text-col > *:nth-child(4) { animation-delay: 0.4s; }
+  .hero-visual { animation: fadeUp 0.7s 0.3s ease backwards; }
+</style>
+</head>
+<body>
+
+<!-- BARRA SUPERIOR -->
+<div class="top-bar">
+  🚀 Frete grátis para compras <span>acima de R$ 150</span> &nbsp;·&nbsp; Produtos a pronta-entrega em Curitiba &nbsp;·&nbsp; Compre direto da fábrica
+</div>
+
+<!-- HERO BANNER -->
+<section class="hero" id="inicio">
+  <div class="hero-inner">
+    <div class="hero-text-col">
+      <div class="hero-badge">
+        Vitamin Factory – Curitiba/PR
+      </div>
+      <h1 class="hero-title">
+        Suplementos<br>
+        <em>Direto da<br>Fábrica</em>
+      </h1>
+      <p class="hero-sub">
+        Qualidade premium com preço que bate de frente com as grandes marcas. Fabricados e entregues direto de Curitiba, sem intermediários.
+      </p>
+      <div class="hero-cta-group">
+        <a href="https://www.vitaminfactory.com.br" class="btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          Ver Produtos e Preços
+        </a>
+        <div class="hero-trust">
+          <div class="trust-item">
+            <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Pronta entrega
+          </div>
+          <div class="trust-item">
+            <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Frete grátis +R$150
+          </div>
+          <div class="trust-item">
+            <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Compre pelo WhatsApp
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-product-card">
+        <div class="combo-label">⭐ Mais Vendido</div>
+        <div class="hero-emojis">🥛 ➕ 💊</div>
+        <div class="combo-name">Whey Pote 100% VF<br>+ Creatina 300g VF</div>
+        <div class="combo-desc">Combo completo para resultados reais</div>
+        <div class="price-block">
+          <div class="price-old">De: R$ 197,89</div>
+          <div class="price-pix-label">✅ No PIX</div>
+          <div class="price-main"><sup>R$</sup>179,90</div>
+          <div class="price-credit">Ou R$ 197,89 no cartão</div>
+        </div>
+        <a href="https://www.vitaminfactory.com.br" class="card-btn">
+          Comprar Agora
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRAND STATS -->
+<div class="brand-strip">
+  <div class="brand-strip-inner">
+    <div class="brand-stat">
+      <span class="brand-stat-num">100%</span>
+      <span class="brand-stat-label">Fabricação Própria</span>
+    </div>
+    <div class="divider-v"></div>
+    <div class="brand-stat">
+      <span class="brand-stat-num">Curitiba</span>
+      <span class="brand-stat-label">Direto da Fábrica</span>
+    </div>
+    <div class="divider-v"></div>
+    <div class="brand-stat">
+      <span class="brand-stat-num">Pronto</span>
+      <span class="brand-stat-label">Estoque Disponível</span>
+    </div>
+    <div class="divider-v"></div>
+    <div class="brand-stat">
+      <span class="brand-stat-num">PIX</span>
+      <span class="brand-stat-label">Melhor Preço</span>
+    </div>
+  </div>
+</div>
+
+<!-- COMBO DESTAQUE -->
+<div class="featured-combo" id="combos">
+  <div class="featured-inner">
+    <div class="section-header" style="margin-bottom:32px;">
+      <span class="section-tag">🔥 Combo Principal</span>
+      <h2 class="section-title">O Duo que <em>Todo Mundo</em><br>Está Comprando</h2>
+    </div>
+    <div class="combo-full-card">
+      <div class="combo-full-left">
+        <div class="combo-tag-top">
+          ⭐ Mais Vendido
+        </div>
+        <h3 class="combo-big-title">Whey Pote 100% VF<br>+ Creatina 300g VF</h3>
+        <p class="combo-big-sub">A combinação ideal para quem quer ganho de massa, força e recuperação. Proteína de qualidade com creatina monohidratada 100% pura.</p>
+
+        <div class="combo-price-row">
+          <div class="combo-pix">
+            <span class="combo-pix-label">✅ No PIX</span>
+            <span class="combo-pix-value"><sup>R$</sup>179,90</span>
+          </div>
+          <div class="combo-credit-info">
+            <span class="combo-credit-label">No cartão</span>
+            <div class="combo-credit-val">R$ 197,89 <s>R$ 240+</s></div>
+          </div>
+        </div>
+
+        <div class="combo-features">
+          <div class="combo-feat">
+            <div class="combo-feat-icon">✓</div>
+            20g proteína / dose
+          </div>
+          <div class="combo-feat">
+            <div class="combo-feat-icon">✓</div>
+            Creatina 100% pura
+          </div>
+          <div class="combo-feat">
+            <div class="combo-feat-icon">✓</div>
+            Matéria-prima importada
+          </div>
+          <div class="combo-feat">
+            <div class="combo-feat-icon">✓</div>
+            Direto da fábrica CWB
+          </div>
+        </div>
+
+        <a href="https://www.vitaminfactory.com.br" class="card-btn" style="max-width:320px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          Comprar Este Combo
+        </a>
+      </div>
+      <div class="combo-full-right">
+        🥛<br>➕<br>💊
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BENEFITS -->
+<div class="benefits-strip">
+  <div class="benefits-inner">
+    <div class="benefit-item">
+      <span class="benefit-icon">🏭</span>
+      <div class="benefit-title">Direto da Fábrica</div>
+      <div class="benefit-desc">Produzido em Curitiba, sem intermediários. Qualidade controlada do início ao fim.</div>
+    </div>
+    <div class="benefit-item">
+      <span class="benefit-icon">💰</span>
+      <div class="benefit-title">Preço Competitivo</div>
+      <div class="benefit-desc">Bate de frente com as grandes marcas. Mais qualidade pelo mesmo preço — ou menos.</div>
+    </div>
+    <div class="benefit-item">
+      <span class="benefit-icon">📦</span>
+      <div class="benefit-title">Pronta Entrega</div>
+      <div class="benefit-desc">Estoque sempre disponível. Frete grátis em compras acima de R$ 150.</div>
+    </div>
+    <div class="benefit-item">
+      <span class="benefit-icon">💬</span>
+      <div class="benefit-title">Atendimento Rápido</div>
+      <div class="benefit-desc">Compre diretamente pelo WhatsApp. Sem burocracia, sem espera.</div>
+    </div>
+  </div>
+</div>
+
+<!-- OUTROS COMBOS -->
+<section class="creatina-section" id="produtos">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-tag">Todos os Combos</span>
+      <h2 class="section-title">Escolha o Seu <em>Combo</em></h2>
+      <p class="section-sub">Todos os produtos são fabricados direto em Curitiba com matéria-prima importada de alta qualidade.</p>
+    </div>
+
+    <div class="products-grid">
+      <!-- COMBO 1 -->
+      <div class="product-card">
+        <div class="card-badge">Combo 01</div>
+        <div class="card-img">🥊💊</div>
+        <div class="card-body">
+          <div class="card-name">Creatina 300g VF<br>+ Creatina 150g G-Action</div>
+          <div class="card-desc">Dupla de creatinas para saturação rápida e performance máxima.</div>
+          <div class="card-prices">
+            <div class="card-price-old">Valor normal: R$ 143,80</div>
+            <div class="card-price-row">
+              <div class="pix-block">
+                <span class="pix-tag">✅ PIX</span>
+                <span class="pix-price"><sup>R$</sup>89,90</span>
+              </div>
+              <div class="credit-block">
+                <span class="credit-tag">Crédito</span>
+                <span class="credit-price">R$ 98,90</span>
+              </div>
+            </div>
+          </div>
+          <a href="https://www.vitaminfactory.com.br" class="card-btn">Comprar Agora</a>
+        </div>
+      </div>
+
+      <!-- COMBO 2 -->
+      <div class="product-card">
+        <div class="card-badge highlight">Combo 02</div>
+        <div class="card-img">🥛💊</div>
+        <div class="card-body">
+          <div class="card-name">Classic Pouch Whey<br>+ Creatina VF 300g</div>
+          <div class="card-desc">Whey clássico em sachê com creatina 100% pura. Praticidade e resultado.</div>
+          <div class="card-prices">
+            <div class="card-price-old">Valor normal: R$ 170+</div>
+            <div class="card-price-row">
+              <div class="pix-block">
+                <span class="pix-tag">✅ PIX</span>
+                <span class="pix-price"><sup>R$</sup>119,90</span>
+              </div>
+              <div class="credit-block">
+                <span class="credit-tag">Crédito</span>
+                <span class="credit-price">R$ 131,80</span>
+              </div>
+            </div>
+          </div>
+          <a href="https://www.vitaminfactory.com.br" class="card-btn">Comprar Agora</a>
+        </div>
+      </div>
+
+      <!-- CREATINA SOLO -->
+      <div class="product-card">
+        <div class="card-badge">Solo</div>
+        <div class="card-img">💊</div>
+        <div class="card-body">
+          <div class="card-name">Creatina 300g<br>Vitamin Factory</div>
+          <div class="card-desc">100% Creatina Monohidratada. Matéria-prima importada, 100% pura. Força + Potência + Performance.</div>
+          <div class="card-prices">
+            <div class="card-price-old">De: R$ 89,90</div>
+            <div class="card-price-row">
+              <div class="pix-block">
+                <span class="pix-tag">✅ PIX</span>
+                <span class="pix-price"><sup>R$</sup>53,90</span>
+              </div>
+              <div class="credit-block">
+                <span class="credit-tag">Crédito</span>
+                <span class="credit-price">R$ 89,90</span>
+              </div>
+            </div>
+          </div>
+          <a href="https://www.vitaminfactory.com.br" class="card-btn">Comprar Agora</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRÉ TREINO -->
+<section class="pretreino-section" id="pretreino">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-tag">⚡ Energia + Foco + Resistência</span>
+      <h2 class="section-title">Pré-Treino <em>Play Insane</em></h2>
+      <p class="section-sub">O pré-treino mais intenso da Vitamin Factory. Três sabores disponíveis, todos a pronta-entrega.</p>
+    </div>
+    <div class="products-grid">
+      <div class="product-card">
+        <div class="card-badge" style="background:#e05c00;">🍊 Orange Juice</div>
+        <div class="card-img">⚡🍊</div>
+        <div class="card-body">
+          <div class="card-name">Play Insane 300g<br>Orange Juice</div>
+          <div class="card-desc">Pré-treino completo com energia máxima, foco e resistência. Sabor Laranja.</div>
+          <div class="card-prices">
+            <div class="card-price-old">De: R$ 108,80</div>
+            <div class="card-price-row">
+              <div class="pix-block">
+                <span class="pix-tag">✅ PIX</span>
+                <span class="pix-price"><sup>R$</sup>69,90</span>
+              </div>
+              <div class="credit-block">
+                <span class="credit-tag">Crédito</span>
+                <span class="credit-price">R$ 76,90</span>
+              </div>
+            </div>
+          </div>
+          <a href="https://www.vitaminfactory.com.br" class="card-btn">Comprar Agora</a>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="card-badge" style="background:#c0392b;">🍓 Berries Explosion</div>
+        <div class="card-img">⚡🍓</div>
+        <div class="card-body">
+          <div class="card-name">Play Insane 300g<br>Berries Explosion</div>
+          <div class="card-desc">Energia explosiva com sabor frutas vermelhas. Para treinos intensos.</div>
+          <div class="card-prices">
+            <div class="card-price-old">De: R$ 108,80</div>
+            <div class="card-price-row">
+              <div class="pix-block">
+                <span class="pix-tag">✅ PIX</span>
+                <span class="pix-price"><sup>R$</sup>69,90</span>
+              </div>
+              <div class="credit-block">
+                <span class="credit-tag">Crédito</span>
+                <span class="credit-price">R$ 76,90</span>
+              </div>
+            </div>
+          </div>
+          <a href="https://www.vitaminfactory.com.br" class="card-btn">Comprar Agora</a>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="card-badge" style="background:#27ae60;">🍏 Green Apple Ice</div>
+        <div class="card-img">⚡🍏</div>
+        <div class="card-body">
+          <div class="card-name">Play Insane 300g<br>Green Apple Ice</div>
+          <div class="card-desc">Sabor refrescante de maçã verde gelada com toda a potência do Play Insane.</div>
+          <div class="card-prices">
+            <div class="card-price-old">De: R$ 108,80</div>
+            <div class="card-price-row">
+              <div class="pix-block">
+                <span class="pix-tag">✅ PIX</span>
+                <span class="pix-price"><sup>R$</sup>69,90</span>
+              </div>
+              <div class="credit-block">
+                <span class="credit-tag">Crédito</span>
+                <span class="credit-price">R$ 76,90</span>
+              </div>
+            </div>
+          </div>
+          <a href="https://www.vitaminfactory.com.br" class="card-btn">Comprar Agora</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE / FAQ -->
+<div class="sobre-section" id="sobre">
+  <div class="sobre-inner">
+    <div class="sobre-visual">
+      <span class="sobre-visual-icon">🏭</span>
+      <div class="sobre-visual-title">Vitamin Factory</div>
+      <div class="sobre-visual-sub">
+        Somos uma fábrica de suplementos localizada em Curitiba, PR. Produzimos com matéria-prima importada e entregamos sem intermediários — diretamente para você.
+      </div>
+      <div class="sobre-visual-address">
+        📍 Curitiba, Paraná<br>
+        🌐 <a href="https://www.vitaminfactory.com.br">vitaminfactory.com.br</a><br>
+        📱 <a href="https://wa.me/5541936182743">(41) 93618-2743</a>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-header" style="margin-bottom:28px;">
+        <span class="section-tag">Dúvidas Frequentes</span>
+        <h2 class="section-title">Perguntas <em>Comuns</em></h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            Vocês entregam para todo o Brasil?
+            <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="faq-a">Sim! Entregamos para todo o Brasil. Frete grátis em compras acima de R$ 150. Produtos saem diretamente da nossa fábrica em Curitiba.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            Qual a diferença entre pagar no PIX ou cartão?
+            <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="faq-a">No PIX você garante o melhor preço, com desconto em relação ao pagamento no cartão de crédito. Os valores estão indicados em cada produto.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            Os produtos têm nota fiscal e registro?
+            <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="faq-a">Sim. Todos os nossos produtos são fabricados com todos os requisitos legais. Somos uma fábrica registrada, operando com total transparência e qualidade.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            Como faço meu pedido pelo WhatsApp?
+            <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="faq-a">Simples! Mande uma mensagem para (41) 93618-2743 informando o produto desejado. Nossa equipe responde rápido e guia você em todo o processo de compra.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            Qual o prazo de entrega?
+            <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="faq-a">Os produtos estão a pronta-entrega. Para Curitiba e região, a entrega pode ser ainda mais rápida. Para o restante do país, o prazo segue os Correios conforme seu CEP.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA FINAL -->
+<div class="cta-final">
+  <div class="cta-final-inner">
+    <h2 class="cta-final-title">Pronto para <em>Evoluir</em><br>de Verdade?</h2>
+    <p class="cta-final-sub">Compre direto da fábrica em Curitiba. Qualidade real, preço justo, entrega garantida. Fale com a gente agora pelo WhatsApp.</p>
+    <div class="cta-final-btns">
+      <a href="https://wa.me/5541936182743?text=Olá!%20Quero%20conhecer%20os%20suplementos%20da%20Vitamin%20Factory!" class="btn-whatsapp">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+        Comprar pelo WhatsApp
+      </a>
+      <a href="https://www.vitaminfactory.com.br" class="btn-secondary-light">
+        Ver Site Completo →
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- RODAPÉ SIMPLES -->
+<footer class="footer-simple">
+  <div class="footer-simple-inner">
+    <div class="footer-brand">Vitamin<span>Factory</span> Suplementos</div>
+    <div class="footer-info">
+      Curitiba, PR &nbsp;·&nbsp; <a href="https://www.vitaminfactory.com.br">vitaminfactory.com.br</a> &nbsp;·&nbsp; <a href="tel:4193618-2743">(41) 93618-2743</a>
+    </div>
+  </div>
+</footer>
+
+<!-- STICKY MOBILE -->
+<div class="sticky-cta">
+  <div class="sticky-cta-content">
+    <div class="sticky-cta-text">
+      <div class="sticky-cta-title">Whey + Creatina VF</div>
+      <div class="sticky-cta-price">R$ 179,90 no PIX</div>
+    </div>
+    <a href="https://wa.me/5541936182743" class="card-btn" style="width:auto;padding:12px 20px;font-size:15px;">
+      Comprar
+    </a>
+  </div>
+</div>
+
+<!-- WHATSAPP FLUTUANTE -->
+<div class="float-whatsapp">
+  <a href="https://wa.me/5541936182743?text=Olá!%20Quero%20ver%20os%20suplementos%20da%20Vitamin%20Factory!" title="Compre pelo WhatsApp">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+  </a>
+</div>
+
+<script>
+  function toggleFaq(el) {
+    const item = el.parentElement;
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  }
+
+  // Scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.product-card, .combo-full-card, .benefit-item, .brand-stat').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
