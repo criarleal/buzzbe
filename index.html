@@ -1,362 +1,972 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buzzbe - Consultoria de Marketing Digital de Performance</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        body { 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            background-color: #ffffff;
-            color: #1a1a1a;
-            scroll-behavior: smooth;
-            overflow-x: hidden;
-        }
-        .text-buzz-blue { color: #4361ee; }
-        .bg-buzz-blue { background-color: #4361ee; }
-        .fill-buzz-blue { fill: #4361ee; }
-        
-        .btn-primary {
-            background-color: #4361ee;
-            color: white;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-        .btn-primary:hover {
-            background-color: #3730a3;
-            transform: translateY(-2px);
-        }
-        
-        .whatsapp-float {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #25d366;
-            color: white;
-            padding: 10px 24px;
-            border-radius: 50px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 600;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            z-index: 100;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-        .whatsapp-float:hover {
-            transform: scale(1.05);
-            background-color: #128c7e;
-        }
-        
-        .hero-gradient {
-            background: linear-gradient(rgba(13, 27, 42, 0.85), rgba(13, 27, 42, 0.85)), 
-                        url('https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80');
-            background-size: cover;
-            background-position: center;
-        }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>buzzbe — Consultoria de Marketing de Performance em Curitiba</title>
+<meta name="description" content="Consultoria de marketing digital de performance. Criamos estratégias para ajudar você a vender mais: branding, performance (ADS), inbound, redes sociais, e-commerce e SEO." />
+<meta name="theme-color" content="#2172ef" />
+<meta property="og:title" content="buzzbe — Consultoria de Marketing de Performance" />
+<meta property="og:description" content="Criamos estratégias para ajudar você a vender mais com marketing digital." />
+<meta property="og:type" content="website" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%232172ef'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Helvetica,Arial' font-size='40' font-weight='800' fill='white'%3Eb%3C/text%3E%3C/svg%3E" />
 
-        .nav-scrolled {
-            background-color: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-            color: #000 !important;
-            padding-top: 1rem !important;
-            padding-bottom: 1rem !important;
-        }
+<style>
+/* ============================================================
+   BUZZBE — tokens
+   ============================================================ */
+:root{
+  --blue:#2172ef;
+  --blue-600:#1554c8;
+  --blue-700:#0e3f9c;
+  --blue-300:#6fa0ff;
+  --blue-100:#dbe7ff;
 
-        /* Novas classes de animação controlada */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    </style>
-<script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react@^19.2.3",
-    "react/": "https://esm.sh/react@^19.2.3/"
-  }
+  --ink:#080b10;
+  --ink-2:#141922;
+  --gray-600:#4a5364;
+  --gray-400:#7c8698;
+  --line:rgba(9,14,24,.10);
+  --line-2:rgba(9,14,24,.16);
+
+  --paper:#ffffff;
+  --paper-2:#f5f7fb;
+  --paper-3:#eaeef6;
+
+  --dark:#070a12;
+  --dark-2:#0c111c;
+
+  --r-sm:10px;
+  --r:16px;
+  --r-lg:26px;
+
+  --gut:clamp(20px,5vw,72px);
+  --maxw:1320px;
+
+  --ease:cubic-bezier(.19,1,.22,1);
+  --ease-2:cubic-bezier(.65,.05,.36,1);
+
+  --font: "Inter","Inter var","Segoe UI Variable Display","Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
 }
-</script>
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+html,body{margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font);
+  background:var(--paper);
+  color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  font-feature-settings:"kern" 1,"liga" 1,"calt" 1;
+  overflow-x:clip;
+}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+::selection{background:var(--blue);color:#fff}
+
+.wrap{width:100%;max-width:var(--maxw);margin-inline:auto;padding-inline:var(--gut)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- type ---------- */
+.display{
+  font-weight:800;
+  letter-spacing:-.045em;
+  line-height:.86;
+  margin:0;
+}
+.d1{font-size:clamp(46px,11.6vw,168px);letter-spacing:-.055em;line-height:.82}
+.d2{font-size:clamp(34px,7vw,92px);line-height:.9;letter-spacing:-.045em}
+.d3{font-size:clamp(26px,3.6vw,52px);line-height:.98;letter-spacing:-.035em}
+.d4{font-size:clamp(21px,2.3vw,32px);line-height:1.06;letter-spacing:-.03em}
+.italic{font-style:italic;letter-spacing:-.06em}
+.thin{font-weight:300}
+
+.lead{font-size:clamp(16.5px,1.5vw,20.5px);line-height:1.55;color:var(--gray-600);max-width:56ch;letter-spacing:-.011em}
+.body{font-size:clamp(15px,1.12vw,16.5px);line-height:1.62;color:var(--gray-600);letter-spacing:-.005em}
+.small{font-size:13.5px;line-height:1.5;letter-spacing:.005em;color:var(--gray-400)}
+.br-lg{display:none}
+@media (min-width:1081px){.br-lg{display:inline}}
+
+.eyebrow{
+  display:inline-flex;align-items:center;gap:.7em;
+  font-size:11.5px;font-weight:650;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--blue);
+}
+.eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--blue);flex:none;
+  box-shadow:0 0 0 0 rgba(33,114,239,.55);animation:pulse 2.6s var(--ease-2) infinite}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(33,114,239,.5)}
+  70%{box-shadow:0 0 0 12px rgba(33,114,239,0)}
+  100%{box-shadow:0 0 0 0 rgba(33,114,239,0)}
+}
+.on-dark .eyebrow{color:var(--blue-300)}
+.on-dark .eyebrow .dot{background:var(--blue-300);box-shadow:0 0 0 0 rgba(111,160,255,.5)}
+.hl{color:var(--blue)}
+.on-dark .hl{color:var(--blue-300)}
+.stroke{
+  color:transparent;
+  -webkit-text-stroke:1.6px var(--blue);
+  text-stroke:1.6px var(--blue);
+}
+.on-dark .stroke{-webkit-text-stroke-color:var(--blue-300)}
+@media (max-width:640px){.stroke{-webkit-text-stroke-width:1.1px}}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.progress{position:fixed;top:0;left:0;height:2px;width:100%;transform:scaleX(0);transform-origin:0 50%;
+  background:linear-gradient(90deg,var(--blue),var(--blue-300));z-index:120;will-change:transform}
+
+.nav{position:fixed;inset:0 0 auto 0;z-index:100;
+  transition:background .5s var(--ease),backdrop-filter .5s var(--ease),box-shadow .5s var(--ease),border-color .5s var(--ease);
+  border-bottom:1px solid transparent}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:24px;height:74px}
+.logo{display:flex;align-items:center;gap:10px;flex:none}
+.logo-mark{width:33px;height:33px;border-radius:50%;background:var(--blue);display:grid;place-items:center;
+  box-shadow:0 8px 22px -8px rgba(33,114,239,.9);flex:none}
+.logo-mark svg{width:12px;height:19px}
+.logo-word{font-size:25px;font-weight:800;letter-spacing:-.05em;color:#fff;line-height:1;transition:color .4s var(--ease)}
+.logo-word .z{color:var(--blue-300);transition:color .4s var(--ease)}
+
+.nav-links{display:flex;align-items:center;gap:4px}
+.nav-links a{
+  position:relative;font-size:14.5px;font-weight:550;letter-spacing:-.01em;
+  color:rgba(255,255,255,.72);padding:9px 14px;border-radius:100px;
+  transition:color .35s var(--ease),background .35s var(--ease)}
+.nav-links a:hover{color:#fff;background:rgba(255,255,255,.08)}
+.nav-cta{
+  display:inline-flex;align-items:center;gap:9px;height:42px;padding:0 20px;border-radius:100px;
+  background:var(--blue);color:#fff;font-size:14px;font-weight:650;letter-spacing:-.01em;
+  box-shadow:0 12px 30px -12px rgba(33,114,239,1);
+  transition:transform .4s var(--ease),box-shadow .4s var(--ease),background .4s var(--ease)}
+.nav-cta:hover{transform:translateY(-2px);background:#2e7dff;box-shadow:0 18px 40px -14px rgba(33,114,239,1)}
+.nav-cta svg{width:14px;height:14px}
+
+/* scrolled state (white bar) */
+.nav.solid{background:rgba(255,255,255,.86);backdrop-filter:saturate(180%) blur(16px);-webkit-backdrop-filter:saturate(180%) blur(16px);
+  border-bottom-color:var(--line);box-shadow:0 10px 30px -22px rgba(8,11,16,.5)}
+.nav.solid .logo-word{color:var(--ink)}
+.nav.solid .logo-word .z{color:var(--blue)}
+.nav.solid .nav-links a{color:var(--gray-600)}
+.nav.solid .nav-links a:hover{color:var(--ink);background:rgba(9,14,24,.05)}
+
+.burger{display:none;width:44px;height:44px;border-radius:100px;align-items:center;justify-content:center;
+  border:1px solid rgba(255,255,255,.24);flex:none}
+.burger span{position:relative;display:block;width:17px;height:1.6px;background:#fff;border-radius:2px;transition:transform .4s var(--ease),background .4s var(--ease)}
+.burger span::before,.burger span::after{content:"";position:absolute;left:0;width:17px;height:1.6px;background:#fff;border-radius:2px;
+  transition:transform .4s var(--ease),top .4s var(--ease),background .4s var(--ease)}
+.burger span::before{top:-5.5px}.burger span::after{top:5.5px}
+.nav.solid .burger{border-color:var(--line-2)}
+.nav.solid .burger span,.nav.solid .burger span::before,.nav.solid .burger span::after{background:var(--ink)}
+body.menu-open .burger span{background:transparent!important}
+body.menu-open .burger span::before{top:0;transform:rotate(45deg);background:var(--ink)!important}
+body.menu-open .burger span::after{top:0;transform:rotate(-45deg);background:var(--ink)!important}
+body.menu-open .nav{background:rgba(255,255,255,.96);backdrop-filter:blur(18px);border-bottom-color:var(--line)}
+body.menu-open .nav .logo-word{color:var(--ink)}
+body.menu-open .nav .logo-word .z{color:var(--blue)}
+body.menu-open .nav .nav-cta{display:none}
+
+.drawer{position:fixed;inset:74px 0 auto 0;z-index:99;background:rgba(255,255,255,.97);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--line);
+  display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s var(--ease);overflow:hidden}
+.drawer>div{overflow:hidden}
+body.menu-open .drawer{grid-template-rows:1fr}
+.drawer ul{list-style:none;margin:0;padding:10px var(--gut) 26px;display:flex;flex-direction:column}
+.drawer a{display:flex;align-items:baseline;justify-content:space-between;gap:16px;
+  padding:15px 0;border-bottom:1px solid var(--line);font-size:24px;font-weight:700;letter-spacing:-.035em;color:var(--ink)}
+.drawer a i{font-style:normal;font-size:11px;font-weight:600;letter-spacing:.18em;color:var(--gray-400)}
+.drawer .drawer-cta{margin-top:20px;border:0;background:var(--blue);color:#fff;justify-content:center;
+  border-radius:100px;font-size:15px;padding:16px 0}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{position:relative;background:var(--dark);color:#fff;overflow:hidden;isolation:isolate}
+.hero-bg{position:absolute;inset:0;z-index:-1;overflow:hidden}
+.hero-bg::before{content:"";position:absolute;inset:-20% -10% auto -10%;height:120%;
+  background:
+    radial-gradient(58% 62% at 78% 8%,rgba(33,114,239,.42),transparent 62%),
+    radial-gradient(46% 50% at 4% 88%,rgba(33,114,239,.22),transparent 66%),
+    radial-gradient(70% 70% at 50% 120%,rgba(111,160,255,.16),transparent 60%);
+  filter:saturate(115%)}
+.grid-lines{position:absolute;inset:0;opacity:.5;
+  background-image:linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px),
+                   linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px);
+  background-size:min(19vw,240px) min(19vw,240px);
+  mask-image:radial-gradient(120% 90% at 50% 0%,#000 20%,transparent 78%);
+  -webkit-mask-image:radial-gradient(120% 90% at 50% 0%,#000 20%,transparent 78%)}
+.noise{position:absolute;inset:0;opacity:.35;mix-blend-mode:overlay;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E")}
+
+.hero-in{position:relative;padding-top:clamp(104px,15.5vh,162px);padding-bottom:clamp(42px,6.2vh,76px);
+  display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(30px,4.6vh,56px)}
+
+.hero-top{display:flex;flex-wrap:wrap;gap:18px 30px;align-items:center;justify-content:space-between}
+.hero-badge{display:inline-flex;align-items:center;gap:10px;padding:8px 15px 8px 11px;border-radius:100px;
+  border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);
+  font-size:12.5px;font-weight:550;letter-spacing:.01em;color:rgba(255,255,255,.78)}
+.hero-badge .eyebrow{letter-spacing:.13em}
+.hero-badge b{color:#fff;font-weight:650;margin-left:2px}
+.hero-place{font-size:12.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4)}
+
+.hero-title{margin:0}
+.hero-title .row{display:block;overflow:hidden}
+.hero-title .row>span{display:block;transform:translateY(112%);opacity:0;
+  transition:transform 1.15s var(--ease),opacity 1.15s var(--ease);transition-delay:var(--d,0ms)}
+.ready .hero-title .row>span{transform:none;opacity:1}
+.l1{font-size:clamp(30px,5.6vw,80px);font-weight:600;letter-spacing:-.04em;line-height:1;color:rgba(255,255,255,.62)}
+.l1 em{font-style:normal;color:#fff;font-weight:800}
+.l2{font-size:clamp(60px,15.6vw,232px);font-weight:800;letter-spacing:-.065em;line-height:.79;margin-top:.02em;
+  background:linear-gradient(96deg,#fff 12%,#cfe0ff 46%,var(--blue-300) 92%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.l3{display:flex;flex-wrap:wrap;align-items:baseline;gap:.28em;margin-top:.1em;
+  font-size:clamp(28px,5.2vw,74px);font-weight:800;letter-spacing:-.045em;line-height:1.12}
+.l3 .cursor{display:inline-block;width:.055em;height:.86em;background:var(--blue);transform:translateY(.06em);
+  animation:blink 1.3s steps(1) infinite}
+@keyframes blink{0%,48%{opacity:1}49%,100%{opacity:0}}
+
+.hero-body{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(28px,4vw,64px);align-items:end}
+.hero-body>*{min-width:0}
+.hero-copy p{margin:0 0 26px;font-size:clamp(16.5px,1.45vw,20px);line-height:1.5;color:rgba(255,255,255,.66);
+  max-width:44ch;letter-spacing:-.011em}
+.hero-copy p b{color:#fff;font-weight:600}
+.hero-actions{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+
+.btn{position:relative;display:inline-flex;align-items:center;gap:11px;height:58px;padding:0 30px;border-radius:100px;
+  font-size:15.5px;font-weight:650;letter-spacing:-.012em;overflow:hidden;isolation:isolate;
+  transition:transform .45s var(--ease),box-shadow .45s var(--ease)}
+.btn svg{width:16px;height:16px;flex:none;transition:transform .45s var(--ease)}
+.btn::after{content:"";position:absolute;inset:0;z-index:-1;transform:translateY(101%);transition:transform .55s var(--ease)}
+.btn:hover{transform:translateY(-3px)}
+.btn:hover svg{transform:translateX(4px)}
+.btn-blue{background:var(--blue);color:#fff;box-shadow:0 18px 44px -18px rgba(33,114,239,1)}
+.btn-blue::after{background:#fff}
+.btn-blue:hover{color:var(--blue)}
+.btn-blue:hover::after{transform:translateY(0)}
+.btn-ghost{border:1px solid rgba(255,255,255,.2);color:#fff}
+.btn-ghost::after{background:rgba(255,255,255,.1)}
+.btn-ghost:hover::after{transform:translateY(0)}
+.btn-dark{background:var(--ink);color:#fff;box-shadow:0 18px 40px -20px rgba(8,11,16,.8)}
+.btn-dark::after{background:var(--blue)}
+.btn-dark:hover::after{transform:translateY(0)}
+.btn-sm{height:48px;padding:0 24px;font-size:14.5px}
+
+/* hero panel */
+.panel{position:relative;border-radius:var(--r-lg);padding:1px;
+  background:linear-gradient(150deg,rgba(255,255,255,.24),rgba(255,255,255,.03) 42%,rgba(33,114,239,.45));
+  box-shadow:0 50px 90px -50px rgba(0,0,0,.95)}
+.panel-in{border-radius:calc(var(--r-lg) - 1px);background:linear-gradient(180deg,#0e1421,#080c15);
+  padding:clamp(18px,2vw,26px);overflow:hidden;position:relative}
+.panel-in::before{content:"";position:absolute;top:-40%;right:-20%;width:70%;height:120%;
+  background:radial-gradient(closest-side,rgba(33,114,239,.35),transparent);pointer-events:none}
+.panel-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:22px;position:relative}
+.panel-head .t{font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.45)}
+.chip{display:inline-flex;align-items:center;gap:7px;padding:6px 12px;border-radius:100px;
+  background:rgba(33,114,239,.16);border:1px solid rgba(33,114,239,.4);color:#a9c8ff;
+  font-size:11.5px;font-weight:650;letter-spacing:.06em;text-transform:uppercase}
+.chart{width:100%;height:auto;min-width:0;overflow:visible;aspect-ratio:13/6}
+.chart .fill{opacity:0;transition:opacity 1.4s var(--ease) 1.1s}
+.in .chart .fill,.ready .chart .fill{opacity:1}
+.chart .ln{fill:none;stroke:url(#lg);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;
+  stroke-dasharray:1400;stroke-dashoffset:1400}
+.in .chart .ln,.ready .chart .ln{animation:draw 2.3s var(--ease) .35s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.chart .n{fill:#fff;opacity:0}
+.chart .halo{fill:none;stroke:var(--blue-300);stroke-width:1.4;opacity:0;transform-origin:center}
+.in .chart .n,.ready .chart .n{animation:nodein .7s var(--ease) forwards;animation-delay:calc(1.5s + var(--i)*.22s)}
+.in .chart .halo,.ready .chart .halo{animation:halo 3.4s var(--ease-2) infinite;animation-delay:calc(1.7s + var(--i)*.22s)}
+@keyframes nodein{from{opacity:0;transform:translateY(9px) scale(.4)}to{opacity:1;transform:none}}
+@keyframes halo{0%{opacity:.85;transform:scale(.7)}70%{opacity:0;transform:scale(2.3)}100%{opacity:0;transform:scale(2.3)}}
+.panel-foot{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px;position:relative;
+  border-top:1px solid rgba(255,255,255,.09);padding-top:20px}
+.pf b{display:block;font-size:clamp(19px,2vw,26px);font-weight:750;letter-spacing:-.035em;color:#fff;line-height:1}
+.pf b span{color:var(--blue-300)}
+.pf i{display:block;margin-top:7px;font-style:normal;font-size:11.5px;font-weight:500;letter-spacing:.05em;
+  text-transform:uppercase;color:rgba(255,255,255,.42);line-height:1.35}
+
+/* marquee */
+.marq{position:relative;background:var(--dark);color:#fff;border-top:1px solid rgba(255,255,255,.09);
+  padding-block:26px;overflow:hidden}
+.marq::before,.marq::after{content:"";position:absolute;top:0;bottom:0;width:min(15vw,190px);z-index:2;pointer-events:none}
+.marq::before{left:0;background:linear-gradient(90deg,var(--dark) 24%,rgba(7,10,18,0))}
+.marq::after{right:0;background:linear-gradient(270deg,var(--dark) 24%,rgba(7,10,18,0))}
+.marq-track{display:flex;width:max-content;animation:slide 42s linear infinite}
+.marq:hover .marq-track{animation-play-state:paused}
+@keyframes slide{to{transform:translateX(-50%)}}
+.marq-set{display:flex;align-items:center;flex:none}
+.marq-set span{display:flex;align-items:center;gap:26px;padding-inline:18px;white-space:nowrap;
+  font-size:clamp(14px,1.35vw,17.5px);font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.5);
+  transition:color .4s var(--ease)}
+.marq-set span::before{content:"";width:4px;height:4px;border-radius:50%;background:var(--blue);flex:none}
+.marq-set span::after{content:"";width:4px;height:4px;border-radius:50%;background:var(--blue);flex:none}
+.marq-set span:hover{color:#fff}
+.marq-label{text-align:center;font-size:11.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(255,255,255,.34);margin-bottom:22px;background:var(--dark);padding-top:34px}
+
+/* ============================================================
+   SECTION BASICS
+   ============================================================ */
+main,footer.foot{overflow-x:clip}
+section{position:relative}
+.sec{padding-block:clamp(76px,11vw,164px)}
+.sec-head{display:grid;grid-template-columns:minmax(0,1.06fr) minmax(0,.94fr);gap:clamp(22px,4vw,70px);align-items:end;
+  margin-bottom:clamp(40px,6vw,84px)}
+.sec-head .kicker{margin-bottom:20px}
+.sec-head h2{margin:0}
+
+/* ---------- statements ---------- */
+.stat-strip{background:var(--ink);color:#fff;overflow:hidden}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+.stat{padding:clamp(34px,4.4vw,58px) clamp(18px,2.4vw,34px);border-left:1px solid rgba(255,255,255,.1)}
+.stat:first-child{border-left:0}
+.stat b{display:block;font-size:clamp(38px,5.4vw,80px);font-weight:800;letter-spacing:-.055em;line-height:.9;
+  background:linear-gradient(175deg,#fff,#7ea9ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat i{display:block;margin-top:16px;font-style:normal;font-size:13px;font-weight:550;letter-spacing:.03em;
+  color:rgba(255,255,255,.52);line-height:1.45}
+
+/* ---------- services list ---------- */
+.svc-list{border-top:1px solid var(--line-2)}
+.svc{display:grid;grid-template-columns:66px minmax(0,1.35fr) minmax(0,.92fr) 46px;gap:clamp(14px,2.2vw,34px);
+  align-items:center;padding-block:clamp(24px,3vw,38px);border-bottom:1px solid var(--line-2);
+  position:relative;isolation:isolate;cursor:pointer}
+.svc::before{content:"";position:absolute;inset:0 auto 0 50%;width:100vw;margin-left:-50vw;z-index:-1;background:var(--blue);
+  transform:scaleY(0);transform-origin:50% 100%;transition:transform .55s var(--ease)}
+.svc:hover::before,.svc:focus-visible::before{transform:scaleY(1)}
+.svc-idx{font-size:12.5px;font-weight:600;letter-spacing:.14em;color:var(--gray-400);transition:color .4s var(--ease)}
+.svc-t{display:flex;align-items:center;gap:clamp(12px,1.6vw,20px);min-width:0}
+.svc-ico{width:44px;height:44px;border-radius:12px;flex:none;display:grid;place-items:center;
+  background:var(--blue-100);color:var(--blue);transition:background .45s var(--ease),color .45s var(--ease),transform .6s var(--ease)}
+.svc-ico svg{width:21px;height:21px}
+.svc h3{margin:0;font-size:clamp(23px,3vw,40px);font-weight:750;letter-spacing:-.04em;line-height:1.02;
+  transition:color .4s var(--ease),transform .55s var(--ease)}
+.svc p{margin:0;font-size:clamp(14.5px,1.15vw,16.5px);line-height:1.55;color:var(--gray-600);
+  letter-spacing:-.005em;transition:color .4s var(--ease)}
+.svc-arrow{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;justify-self:end;
+  border:1px solid var(--line-2);color:var(--ink);flex:none;
+  transition:background .45s var(--ease),color .45s var(--ease),border-color .45s var(--ease),transform .55s var(--ease)}
+.svc-arrow svg{width:17px;height:17px}
+.svc:hover .svc-idx,.svc:focus-visible .svc-idx{color:rgba(255,255,255,.7)}
+.svc:hover h3,.svc:focus-visible h3{color:#fff;transform:translateX(8px)}
+.svc:hover p,.svc:focus-visible p{color:rgba(255,255,255,.86)}
+.svc:hover .svc-ico,.svc:focus-visible .svc-ico{background:rgba(255,255,255,.16);color:#fff;transform:rotate(-8deg) scale(1.05)}
+.svc:hover .svc-arrow,.svc:focus-visible .svc-arrow{background:#fff;border-color:#fff;color:var(--blue);transform:rotate(-45deg)}
+
+/* ---------- dark manifesto band ---------- */
+.band{background:var(--dark);color:#fff;overflow:hidden;isolation:isolate}
+.band::before{content:"";position:absolute;inset:0;z-index:-1;
+  background:radial-gradient(70% 55% at 85% 0%,rgba(33,114,239,.34),transparent 62%),
+             radial-gradient(60% 60% at 0% 100%,rgba(33,114,239,.2),transparent 60%)}
+.quote{max-width:22ch;font-size:clamp(38px,7.4vw,112px);font-weight:800;letter-spacing:-.055em;line-height:.92;margin:0}
+.quote .soft{color:rgba(255,255,255,.32)}
+.band-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(34px,5vw,80px);align-items:end}
+.band-copy p{margin:0 0 22px;font-size:clamp(15.5px,1.15vw,17.5px);line-height:1.62;color:rgba(255,255,255,.6);max-width:52ch}
+.band-copy p:last-of-type{margin-bottom:0}
+.tick{list-style:none;margin:30px 0 0;padding:0;display:grid;gap:0}
+.tick li{display:flex;gap:14px;align-items:flex-start;padding:15px 0;border-top:1px solid rgba(255,255,255,.11);
+  font-size:14.5px;font-weight:550;color:rgba(255,255,255,.88);letter-spacing:-.008em}
+.tick li svg{width:17px;height:17px;flex:none;color:var(--blue-300);margin-top:2px}
+
+/* ---------- process ---------- */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--line-2);margin-top:8px}
+.step{padding:clamp(26px,3vw,42px) clamp(14px,2vw,32px) clamp(8px,1.4vw,18px) 0;position:relative}
+.step+.step{border-left:1px solid var(--line);padding-left:clamp(18px,2.4vw,34px)}
+.step .n{font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--blue);margin-bottom:clamp(30px,5vw,76px);display:block}
+.step h4{margin:0 0 12px;font-size:clamp(18px,1.6vw,23px);font-weight:700;letter-spacing:-.03em;line-height:1.12}
+.step p{margin:0;font-size:14.5px;line-height:1.6;color:var(--gray-600)}
+.step .rail{position:absolute;top:0;left:0;height:2px;width:0;background:var(--blue);transition:width .9s var(--ease)}
+.step.in .rail{width:100%}
+
+/* ---------- CTA ---------- */
+.cta{background:var(--blue);color:#fff;overflow:hidden;isolation:isolate;position:relative}
+.cta::before{content:"";position:absolute;inset:-30% -10% auto -10%;height:150%;z-index:-1;
+  background:radial-gradient(52% 60% at 82% 12%,rgba(255,255,255,.34),transparent 60%),
+             radial-gradient(60% 70% at 6% 100%,rgba(6,34,96,.5),transparent 62%)}
+.cta .eyebrow{color:rgba(255,255,255,.8)}
+.cta .eyebrow .dot{background:#fff;box-shadow:0 0 0 0 rgba(255,255,255,.6)}
+.cta h2{max-width:100%;font-size:clamp(32px,4.4vw,62px);line-height:.95;letter-spacing:-.042em}
+.cta p{color:rgba(255,255,255,.82);max-width:48ch}
+.cta-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(32px,5vw,80px);align-items:end}
+.cta-grid>*{min-width:0}
+.cta-list{display:grid;gap:2px;margin-top:34px}
+.cta-row{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:19px 4px;
+  border-top:1px solid rgba(255,255,255,.26);transition:padding-left .5s var(--ease)}
+.cta-row:last-child{border-bottom:1px solid rgba(255,255,255,.26)}
+.cta-row:hover{padding-left:16px}
+.cta-row span{font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.66)}
+.cta-row b{font-size:clamp(17px,1.6vw,23px);font-weight:700;letter-spacing:-.03em;display:flex;align-items:center;gap:12px}
+.cta-row b svg{width:16px;height:16px;opacity:0;transform:translateX(-8px);transition:opacity .4s var(--ease),transform .4s var(--ease)}
+.cta-row:hover b svg{opacity:1;transform:none}
+.btn-white{background:#fff;color:var(--blue);box-shadow:0 22px 50px -20px rgba(3,20,60,.6)}
+.btn-white::after{background:var(--ink)}
+.btn-white:hover{color:#fff}
+.btn-white:hover::after{transform:translateY(0)}
+
+/* ---------- footer ---------- */
+.foot{background:var(--dark);color:#fff;padding-top:clamp(58px,7vw,88px);padding-bottom:34px}
+.foot-top{display:grid;grid-template-columns:minmax(0,1.18fr) minmax(0,.82fr) minmax(0,.82fr);gap:clamp(30px,4vw,60px);
+  padding-bottom:clamp(40px,5vw,64px);border-bottom:1px solid rgba(255,255,255,.1)}
+.foot-top>*{min-width:0}
+.foot-word{font-size:clamp(54px,9vw,118px);font-weight:800;letter-spacing:-.06em;line-height:.82;margin:22px 0 0;white-space:nowrap;
+  background:linear-gradient(100deg,#fff,#8fb4ff 70%,var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent}
+.foot h5{margin:0 0 18px;font-size:11.5px;font-weight:650;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4)}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:11px}
+.foot ul a,.foot ul span{font-size:15px;font-weight:500;color:rgba(255,255,255,.78);letter-spacing:-.01em;
+  transition:color .35s var(--ease)}
+.foot ul a:hover{color:var(--blue-300)}
+.foot-bot{display:flex;flex-wrap:wrap;gap:14px 26px;align-items:center;justify-content:space-between;padding-top:26px;
+  font-size:12.5px;color:rgba(255,255,255,.38);letter-spacing:.01em}
+.foot-bot .up{display:inline-flex;align-items:center;gap:9px;color:rgba(255,255,255,.72);font-weight:550;
+  transition:color .35s var(--ease)}
+.foot-bot .up:hover{color:#fff}
+.foot-bot .up svg{width:14px;height:14px}
+
+/* sticky whatsapp */
+.wa{position:fixed;right:clamp(14px,2.2vw,26px);bottom:clamp(14px,2.2vw,26px);z-index:95;
+  display:inline-flex;align-items:center;gap:10px;height:52px;padding:0 20px 0 16px;border-radius:100px;
+  background:var(--ink);color:#fff;font-size:14px;font-weight:600;letter-spacing:-.01em;
+  box-shadow:0 20px 46px -18px rgba(8,11,16,.9);border:1px solid rgba(255,255,255,.1);
+  transition:transform .45s var(--ease),background .45s var(--ease)}
+.wa:hover{transform:translateY(-3px);background:var(--blue)}
+.wa svg{width:19px;height:19px;color:#4ade80;transition:color .45s var(--ease)}
+.wa:hover svg{color:#fff}
+.wa span{display:inline}
+
+/* ---------- reveal ---------- */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .95s var(--ease),transform .95s var(--ease);
+  transition-delay:var(--d,0ms);will-change:opacity,transform}
+.rv.in{opacity:1;transform:none}
+.rv-clip{clip-path:inset(0 0 100% 0);transition:clip-path 1.05s var(--ease);transition-delay:var(--d,0ms)}
+.rv-clip.in{clip-path:inset(0 0 0 0)}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:1080px){
+  .nav-links{display:none}
+  .burger{display:flex}
+  .hero-body{grid-template-columns:1fr;gap:34px}
+  .hero-copy p{max-width:52ch}
+  .sec-head{grid-template-columns:1fr;gap:22px;align-items:start}
+  .sec-head h2{max-width:18ch}
+  .band-grid{grid-template-columns:1fr;gap:34px}
+  .cta-grid{grid-template-columns:1fr;gap:34px}
+  .stat-grid{grid-template-columns:repeat(2,1fr)}
+  .stat:nth-child(3){border-left:0}
+  .stat:nth-child(n+3){border-top:1px solid rgba(255,255,255,.1)}
+  .steps{grid-template-columns:repeat(2,1fr)}
+  .step:nth-child(3){border-left:0}
+  .step:nth-child(odd){padding-left:0}
+  .step:nth-child(n+3){border-top:1px solid var(--line);padding-top:clamp(26px,3vw,42px)}
+  .foot-top{grid-template-columns:1fr 1fr}
+  .foot-top>div:first-child{grid-column:1/-1}
+  .svc{grid-template-columns:60px minmax(0,1fr) 46px}
+  .svc p{grid-column:2/3;margin-top:-6px}
+  .svc-arrow{grid-row:1/3;grid-column:3/4}
+}
+@media (max-width:720px){
+  .nav-in{height:64px}
+  .drawer{inset:64px 0 auto 0}
+  .nav-cta{display:none}
+  .panel,.panel-in{border-radius:20px}
+  .panel-in{border-radius:19px}
+  .logo-word{font-size:22px}
+  .logo-mark{width:29px;height:29px}
+  .hero-in{padding-top:clamp(96px,15vh,120px)}
+  .hero-top{flex-direction:column;align-items:flex-start;gap:14px}
+  .hero-place{order:2}
+  .l3 .cursor{display:none}
+  .btn{height:54px;padding:0 24px;font-size:15px}
+  .hero-actions .btn-blue{width:100%;justify-content:center}
+  .panel-foot{grid-template-columns:1fr 1fr;gap:18px}
+  .pf:last-child{grid-column:1/-1}
+  .sec{padding-block:clamp(64px,13vw,90px)}
+  .svc{grid-template-columns:minmax(0,1fr) 40px;gap:16px;padding-block:22px}
+  .svc-idx{display:none}
+  .svc-t{align-items:center}
+  .svc-ico{width:38px;height:38px;border-radius:10px}
+  .svc-ico svg{width:18px;height:18px}
+  .svc p{grid-column:1/2;margin-top:2px;font-size:14.5px}
+  .svc-arrow{width:40px;height:40px;grid-column:2/3;grid-row:1/3;align-self:center}
+  .svc:hover h3{transform:none}
+  .svc:hover::before{transform:scaleY(0)}
+  .svc:active::before{transform:scaleY(1)}
+  .steps{grid-template-columns:1fr}
+  .step{padding:24px 0}
+  .step+.step{border-left:0;border-top:1px solid var(--line);padding-left:0}
+  .step .n{margin-bottom:20px}
+  .stat-grid{grid-template-columns:1fr}
+  .stat{border-left:0;border-top:1px solid rgba(255,255,255,.1);padding-block:28px}
+  .stat:first-child{border-top:0}
+  .stat b{font-size:44px}
+  .foot-top{grid-template-columns:1fr;gap:34px}
+  .wa span{display:none}
+  .wa{width:56px;height:56px;padding:0;justify-content:center}
+  .wa svg{width:24px;height:24px}
+  .marq-set span{padding-inline:18px;gap:18px}
+  .chart{aspect-ratio:11/6}
+}
+@media (max-width:400px){
+  .foot-word{font-size:52px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important}
+  html{scroll-behavior:auto}
+  .rv{opacity:1;transform:none}
+  .rv-clip{clip-path:none}
+  .hero-title .row>span{transform:none;opacity:1}
+}
+</style>
 </head>
 <body>
-    <div id="root"></div>
 
-    <script type="module">
-        import React, { useState, useEffect, useRef } from 'https://esm.sh/react@18.2.0';
-        import ReactDOM from 'https://esm.sh/react-dom@18.2.0/client';
-        import { 
-            Edit3, MousePointer2, Send, Layout, ShoppingCart, Search, 
-            Play, Target, BarChart3, Users, ShieldCheck, AtSign, Mail, PhoneCall, MessageCircle
-        } from 'https://esm.sh/lucide-react@0.263.1';
+<div class="progress" id="progress" aria-hidden="true"></div>
 
-        // Componente utilitário para animação ao rolar
-        const Reveal = ({ children, className = "" }) => {
-            const ref = useRef(null);
-            const [isVisible, setIsVisible] = useState(false);
+<!-- ============ NAV ============ -->
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="logo" href="#top" aria-label="buzzbe — início">
+      <span class="logo-mark" aria-hidden="true">
+        <svg viewBox="0 0 12 19" fill="none"><path d="M0 0h3.5v6.6A5.6 5.6 0 0 1 7.2 5.4C10 5.4 12 7.5 12 10.5S9.9 15.6 7.1 15.6c-1.6 0-2.9-.6-3.6-1.6v1.4H0V0Zm6.6 12.8c1.5 0 2.5-1 2.5-2.4S8.1 8 6.6 8 4.1 9 4.1 10.4s1 2.4 2.5 2.4Z" fill="#fff"/></svg>
+      </span>
+      <span class="logo-word">buz<span class="z">z</span>be</span>
+    </a>
 
-            useEffect(() => {
-                const observer = new IntersectionObserver(
-                    ([entry]) => {
-                        if (entry.isIntersecting) {
-                            setIsVisible(true);
-                            observer.unobserve(entry.target); // Anima apenas uma vez
-                        }
-                    },
-                    { threshold: 0.1 }
-                );
+    <nav class="nav-links" aria-label="Navegação principal">
+      <a href="#servicos">Serviços</a>
+      <a href="#processo">Processo</a>
+      <a href="#estudio">Estúdio</a>
+      <a href="#contato">Contato</a>
+    </nav>
 
-                if (ref.current) observer.observe(ref.current);
-                return () => observer.disconnect();
-            }, []);
+    <a class="nav-cta" href="https://wa.me/5541998939133?text=Ol%C3%A1%2C%20quero%20um%20or%C3%A7amento%20de%20marketing%20de%20performance." target="_blank" rel="noopener">
+      Solicitar orçamento
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
 
-            return React.createElement('div', {
-                ref,
-                className: `reveal ${isVisible ? 'active' : ''} ${className}`
-            }, children);
-        };
+    <button class="burger" id="burger" aria-label="Abrir menu" aria-expanded="false" aria-controls="drawer"><span></span></button>
+  </div>
+</header>
 
-        const App = () => {
-            const [currentPage, setCurrentPage] = useState('home');
-            const [scrolled, setScrolled] = useState(false);
+<div class="drawer" id="drawer">
+  <div>
+    <ul>
+      <li><a href="#servicos">Serviços <i>01</i></a></li>
+      <li><a href="#processo">Processo <i>02</i></a></li>
+      <li><a href="#estudio">Estúdio <i>03</i></a></li>
+      <li><a href="#contato">Contato <i>04</i></a></li>
+      <li><a class="drawer-cta" href="https://wa.me/5541998939133?text=Ol%C3%A1%2C%20quero%20um%20or%C3%A7amento%20de%20marketing%20de%20performance." target="_blank" rel="noopener">Solicitar orçamento</a></li>
+    </ul>
+  </div>
+</div>
 
-            useEffect(() => {
-                const handleScroll = () => setScrolled(window.scrollY > 50);
-                window.addEventListener('scroll', handleScroll);
-                return () => window.removeEventListener('scroll', handleScroll);
-            }, []);
+<main id="top">
 
-            useEffect(() => {
-                window.scrollTo(0, 0);
-            }, [currentPage]);
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="hero">
+    <div class="hero-bg" aria-hidden="true">
+      <div class="grid-lines"></div>
+      <div class="noise"></div>
+    </div>
 
-            const Nav = () => React.createElement('nav', {
-                className: `fixed w-full z-50 transition-all duration-300 py-6 ${scrolled ? 'nav-scrolled' : 'bg-transparent text-white'}`
-            }, React.createElement('div', { className: 'container mx-auto px-6 flex justify-between items-center' }, [
-                React.createElement('div', { 
-                    className: `text-3xl font-bold tracking-tight cursor-pointer transition-colors ${scrolled ? 'text-buzz-blue' : 'text-white'}`, 
-                    onClick: () => setCurrentPage('home'),
-                    key: 'logo'
-                }, 'buzzbe'),
-                React.createElement('div', { 
-                    className: 'hidden md:flex space-x-8 items-center font-medium text-sm',
-                    key: 'links'
-                }, [
-                    React.createElement('button', { onClick: () => setCurrentPage('home'), className: 'hover:text-buzz-blue transition-colors bg-transparent border-none cursor-pointer', key: 'h' }, 'Página Inicial'),
-                    React.createElement('button', { onClick: () => setCurrentPage('about'), className: 'hover:text-buzz-blue transition-colors bg-transparent border-none cursor-pointer', key: 'a' }, 'Sobre nós'),
-                    React.createElement('button', { onClick: () => setCurrentPage('services'), className: 'hover:text-buzz-blue transition-colors bg-transparent border-none cursor-pointer', key: 's' }, 'Serviços'),
-                    React.createElement('button', { onClick: () => setCurrentPage('contact'), className: 'hover:text-buzz-blue transition-colors bg-transparent border-none cursor-pointer', key: 'c' }, 'Contato'),
-                    React.createElement('button', { onClick: () => setCurrentPage('contact'), className: 'btn-primary px-6 py-2 rounded-md font-bold text-xs uppercase', key: 'btn' }, 'SOLICITAR ORÇAMENTO')
-                ])
-            ]));
+    <div class="wrap hero-in">
+      <div class="hero-top">
+        <span class="hero-badge"><span class="eyebrow" style="letter-spacing:.14em"><span class="dot"></span>Consultoria de marketing</span>
+          <b>desde 2012</b>
+        </span>
+        <span class="hero-place">Curitiba · atendimento remoto no Brasil</span>
+      </div>
 
-            const Footer = () => React.createElement('footer', { className: 'bg-[#0a0a0a] text-white py-20 mt-auto' }, 
-                React.createElement('div', { className: 'container mx-auto px-6' }, [
-                    React.createElement('div', { className: 'grid grid-cols-1 md:grid-cols-4 gap-12 mb-16', key: 'grid' }, [
-                        React.createElement('div', { key: 'col1' }, [
-                            React.createElement('div', { className: 'text-4xl font-bold text-buzz-blue mb-6' }, 'buzzbe'),
-                            React.createElement('p', { className: 'text-gray-400 text-sm leading-relaxed' }, 'Consultoria de marketing de performance.')
-                        ]),
-                        React.createElement('div', { key: 'col2' }, [
-                            React.createElement('h4', { className: 'font-bold text-xl mb-6' }, 'Institucional'),
-                            React.createElement('ul', { className: 'space-y-3 text-sm text-gray-400' }, [
-                                React.createElement('li', { key: 'l1' }, React.createElement('button', { onClick: () => setCurrentPage('home'), className: 'hover:text-white transition-colors underline bg-transparent border-none cursor-pointer' }, 'Página Inicial')),
-                                React.createElement('li', { key: 'l2' }, React.createElement('button', { onClick: () => setCurrentPage('about'), className: 'hover:text-white transition-colors underline bg-transparent border-none cursor-pointer' }, 'Sobre nós')),
-                                React.createElement('li', { key: 'l3' }, React.createElement('button', { onClick: () => setCurrentPage('services'), className: 'hover:text-white transition-colors underline bg-transparent border-none cursor-pointer' }, 'Serviços')),
-                                React.createElement('li', { key: 'l4' }, React.createElement('button', { onClick: () => setCurrentPage('contact'), className: 'hover:text-white transition-colors underline bg-transparent border-none cursor-pointer' }, 'Contato'))
-                            ])
-                        ]),
-                        React.createElement('div', { key: 'col3' }, [
-                            React.createElement('h4', { className: 'font-bold text-xl mb-6' }, 'Whatsapp'),
-                            React.createElement('a', { href: 'https://wa.me/5541998939133', target: '_blank', className: 'text-gray-400 text-sm hover:text-white underline' }, 'Fale no Whatsapp')
-                        ]),
-                        React.createElement('div', { key: 'col4' }, [
-                            React.createElement('h4', { className: 'font-bold text-xl mb-6' }, 'Fale conosco'),
-                            React.createElement('p', { className: 'text-gray-400 text-sm mb-2' }, 'contato@buzzbe.com.br'),
-                            React.createElement('p', { className: 'text-gray-400 text-sm' }, '(41) 99893-9133')
-                        ])
-                    ]),
-                    React.createElement('div', { className: 'pt-8 border-t border-white/10 text-xs text-gray-500', key: 'copy' }, 'Copyright © 2026 buzzbe')
-                ])
-            );
+      <h1 class="hero-title display">
+        <span class="row"><span class="l1" style="--d:60ms">Marketing digital de <em>performance</em></span></span>
+        <span class="row"><span class="l2" style="--d:170ms">Resultado</span></span>
+        <span class="row"><span class="l3" style="--d:290ms"><span>que se&nbsp;mede.</span><span class="cursor" aria-hidden="true"></span></span></span>
+      </h1>
 
-            const Home = () => React.createElement('div', null, [
-                React.createElement('header', { className: 'relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden hero-gradient', key: 'hero' }, 
-                    React.createElement('div', { className: 'container mx-auto px-6 relative z-10 text-white' }, 
-                        React.createElement('div', { className: 'flex flex-col lg:flex-row items-center gap-12' }, [
-                            React.createElement('div', { className: 'lg:w-1/2 text-left', key: 'text' }, [
-                                React.createElement('h1', { className: 'text-4xl md:text-6xl font-extrabold mb-6 tracking-tight leading-[1.1]' }, 'Consultoria de marketing digital de performance'),
-                                React.createElement('p', { className: 'text-white/80 text-lg md:text-xl max-w-lg mb-10 leading-relaxed font-medium' }, 'Criamos estratégias para ajudar você a vender mais com marketing digital.'),
-                                React.createElement('button', { onClick: () => setCurrentPage('contact'), className: 'btn-primary px-10 py-4 rounded-full font-bold text-sm uppercase tracking-widest shadow-lg shadow-blue-500/20' }, 'SOLICITAR ORÇAMENTO')
-                            ]),
-                            React.createElement('div', { className: 'lg:w-1/2 w-full flex justify-center lg:justify-end', key: 'vid' }, 
-                                React.createElement('div', { className: 'relative w-full max-w-[340px] aspect-[9/16] rounded-[1rem] overflow-hidden border-4 border-white/5 shadow-2xl bg-black' }, [
-                                    React.createElement('video', { className: 'w-full h-full object-cover', poster: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80', autoPlay: true, muted: true, loop: true, playsInline: true, key: 'v' }, 
-                                        React.createElement('source', { src: 'https://assets.mixkit.co/videos/preview/mixkit-working-on-a-laptop-at-the-office-908-large.mp4', type: 'video/mp4' })
-                                    ),
-                                    React.createElement('div', { className: 'absolute top-20 left-4 right-4 bg-[#63b3ed] text-black font-bold p-2 text-center rounded-md text-sm shadow-lg', key: 'tag1' }, 'Aumento em vendas'),
-                                    React.createElement('div', { className: 'absolute top-[125px] left-12 right-12 bg-black text-white font-bold p-1 text-center rounded-md text-xs shadow-lg uppercase', key: 'tag2' }, 'mais de 200%')
-                                ])
-                            )
-                        ])
-                    )
-                ),
-                React.createElement(Reveal, { key: 'intro' }, 
-                    React.createElement('section', { className: 'py-20 bg-[#f8f9fa]' }, 
-                        React.createElement('div', { className: 'container mx-auto px-6 text-center' }, [
-                            React.createElement('h2', { className: 'text-3xl md:text-4xl font-extrabold mb-4', key: 't' }, 'Bem-vindo à buzzbe'),
-                            React.createElement('p', { className: 'text-[#666] text-lg max-w-2xl mx-auto mb-16', key: 'p' }, 'Somos especialistas em trazer resultados mensuráveis para sua empresa.'),
-                            React.createElement('div', { className: 'grid grid-cols-1 md:grid-cols-3 gap-6', key: 'grid' }, [
-                                { icon: Edit3, title: "Branding", text: "Ocupe a mente e o coração do seu público alvo ao fortalecer e fixar a sua marca." },
-                                { icon: MousePointer2, title: "Performance (ADS)", text: "Gestão de anúncios em redes sociais para geração de resultados em curto prazo." },
-                                { icon: Send, title: "Inbound Marketing", text: "Método criado para atrair e converter novos clientes em diferentes etapas do funil." },
-                                { icon: Layout, title: "Redes Sociais", text: "Planejamento multiplataforma, produção de conteúdo e gestão das plataformas digitais." },
-                                { icon: ShoppingCart, title: "eCommerce", text: "Planejar, executar, mensurar e otimizar campanhas voltadas para o comércio eletrônico." },
-                                { icon: Search, title: "SEO", text: "Otimização para Google, sua empresa bem posicionado no principal buscador da rede." }
-                            ].map((s, idx) => React.createElement('div', { key: idx, className: 'bg-white p-10 text-left border border-gray-100 shadow-sm hover:shadow-md transition-shadow' }, [
-                                React.createElement(s.icon, { className: 'text-buzz-blue mb-6', size: 32, key: 'i' }),
-                                React.createElement('h3', { className: 'text-xl font-bold mb-3', key: 't' }, s.title),
-                                React.createElement('p', { className: 'text-gray-500 text-sm leading-relaxed', key: 'p' }, s.text)
-                            ])))
-                        ])
-                    )
-                )
-            ]);
+      <div class="hero-body">
+        <div class="hero-copy rv" style="--d:220ms">
+          <p>Criamos estratégias para <b>vender mais com marketing digital</b>. Marketing ágil, tecnologia e análise detalhada de mercado — com a visão estratégica de negócios que acelera o seu crescimento.</p>
+          <div class="hero-actions">
+            <a class="btn btn-blue" href="#contato">
+              Solicitar orçamento
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a class="btn btn-ghost" href="#servicos">Ver o que fazemos</a>
+          </div>
+        </div>
 
-            const About = () => React.createElement('div', null, [
-                React.createElement('div', { className: 'relative pt-40 pb-32 bg-[#0d1b2a] text-center overflow-hidden', key: 'h' }, [
-                    React.createElement('div', { className: 'absolute inset-0 opacity-20', style: { backgroundImage: 'linear-gradient(#ffffff 1px, transparent 1px), linear-gradient(90deg, #ffffff 1px, transparent 1px)', backgroundSize: '40px 40px' }, key: 'bg' }),
-                    React.createElement('div', { className: 'container mx-auto px-6 relative z-10 text-white', key: 't' }, [
-                        React.createElement('h1', { className: 'text-5xl md:text-6xl font-bold mb-4' }, 'Sobre nós'),
-                        React.createElement('p', { className: 'text-xl font-bold' }, 'Bem-vindo à buzzbe')
-                    ])
-                ]),
-                React.createElement('div', { className: 'container mx-auto px-6 -mt-16 relative z-20 pb-20', key: 'content' }, 
-                    React.createElement(Reveal, null, 
-                        React.createElement('div', { className: 'grid grid-cols-1 md:grid-cols-3 gap-8' }, [
-                            React.createElement('div', { className: 'bg-white p-12 shadow-xl rounded-sm', key: 'c1' }, [
-                                React.createElement('div', { className: 'w-12 h-1 bg-buzz-blue mb-8' }),
-                                React.createElement('h3', { className: 'text-2xl font-bold mb-6' }, 'Quem somos nós'),
-                                React.createElement('p', { className: 'text-[#666] text-sm leading-relaxed' }, 'Entendemos que o mundo está em constante mudança, assim como as empresas e os negócios.'),
-                                React.createElement('p', { className: 'text-[#666] text-sm leading-relaxed mt-4' }, 'Oferecemos Marketing ágil, tecnologia e análise detalhada de mercado para acelerar seu crescimento.')
-                            ]),
-                            React.createElement('div', { className: 'bg-white p-12 shadow-xl rounded-sm', key: 'c2' }, [
-                                React.createElement('div', { className: 'w-12 h-1 bg-buzz-blue mb-8' }),
-                                React.createElement('h3', { className: 'text-2xl font-bold mb-6' }, 'Missão'),
-                                React.createElement('p', { className: 'text-[#666] text-sm leading-relaxed' }, 'Gerar transformação ao encontrar o seu propósito com o uso de estratégias de publicidade, marketing e vendas.')
-                            ]),
-                            React.createElement('div', { className: 'bg-white p-12 shadow-xl rounded-sm', key: 'c3' }, [
-                                React.createElement('div', { className: 'w-12 h-1 bg-buzz-blue mb-8' }),
-                                React.createElement('h3', { className: 'text-2xl font-bold mb-6' }, 'O que fazemos'),
-                                React.createElement('ul', { className: 'space-y-3' }, 
-                                    ['Branding', 'Performance (ADS)', 'SEO', 'Redes Sociais', 'eCommerce', 'Inbound Marketing'].map(i => React.createElement('li', { key: i, className: 'flex items-center gap-3 text-sm text-[#666]' }, [
-                                        React.createElement(Play, { size: 10, className: 'fill-buzz-blue text-buzz-blue', key: 'i' }), i
-                                    ]))
-                                )
-                            ])
-                        ])
-                    )
-                )
-            ]);
+        <div class="panel rv" style="--d:340ms">
+          <div class="panel-in">
+            <div class="panel-head">
+              <span class="t">Painel de performance</span>
+              <span class="chip">ao vivo</span>
+            </div>
 
-            const Services = () => React.createElement('div', null, [
-                React.createElement('div', { className: 'relative pt-40 pb-32 bg-[#0d1b2a] text-center overflow-hidden', key: 'h' }, 
-                    React.createElement('div', { className: 'container mx-auto px-6 relative z-10 text-white' }, [
-                        React.createElement('h1', { className: 'text-5xl md:text-6xl font-bold mb-6' }, 'Serviços'),
-                        React.createElement('p', { className: 'text-xl font-bold max-w-2xl mx-auto' }, 'Transformação digital em marketing e vendas')
-                    ])
-                ),
-                React.createElement('section', { className: 'py-20', key: 'grid' }, 
-                    React.createElement('div', { className: 'container mx-auto px-6' }, [
-                        React.createElement('h2', { className: 'text-3xl font-extrabold text-center mb-16' }, 'Soluções para o seu negócio'),
-                        React.createElement('div', { className: 'grid grid-cols-1 md:grid-cols-3 gap-6' }, 
-                            [
-                                { icon: Edit3, title: "Branding", text: "Ocupe a mente e o coração do seu público alvo." },
-                                { icon: MousePointer2, title: "Performance (ADS)", text: "Gestão de anúncios em redes sociais para resultados rápidos." },
-                                { icon: Send, title: "Inbound Marketing", text: "Atraia e converta novos clientes via conteúdo." },
-                                { icon: Layout, title: "Redes Sociais", text: "Gestão profissional das suas plataformas digitais." },
-                                { icon: ShoppingCart, title: "eCommerce", text: "Campanhas voltadas para o comércio eletrônico." },
-                                { icon: Search, title: "SEO", text: "Fique bem posicionado no principal buscador da rede." }
-                            ].map((s, idx) => React.createElement(Reveal, { key: idx }, 
-                                React.createElement('div', { className: 'bg-white p-10 border border-gray-100 shadow-sm hover:shadow-md transition-shadow h-full' }, [
-                                    React.createElement(s.icon, { className: 'text-buzz-blue mb-6', size: 32, key: 'i' }),
-                                    React.createElement('h3', { className: 'text-xl font-bold mb-3', key: 't' }, s.title),
-                                    React.createElement('p', { className: 'text-gray-500 text-sm', key: 'p' }, s.text)
-                                ])
-                            ))
-                        )
-                    ])
-                )
-            ]);
+            <svg class="chart" viewBox="0 0 520 240" width="520" height="240" role="img" aria-label="Gráfico de crescimento de resultado ao longo do tempo">
+              <defs>
+                <linearGradient id="lg" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#2172ef" stop-opacity=".35"/>
+                  <stop offset="55%" stop-color="#4d90ff"/>
+                  <stop offset="100%" stop-color="#a9c8ff"/>
+                </linearGradient>
+                <linearGradient id="fg" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#2172ef" stop-opacity=".42"/>
+                  <stop offset="100%" stop-color="#2172ef" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <g stroke="rgba(255,255,255,.09)" stroke-width="1">
+                <line x1="0" y1="60" x2="520" y2="60"/>
+                <line x1="0" y1="120" x2="520" y2="120"/>
+                <line x1="0" y1="180" x2="520" y2="180"/>
+                <line x1="0" y1="238" x2="520" y2="238"/>
+              </g>
+              <path class="fill" d="M0 214 C 60 206 92 186 130 172 C 175 155 205 132 250 118 C 296 104 330 78 372 58 C 414 38 462 30 500 16 L500 240 L0 240 Z" fill="url(#fg)"/>
+              <path class="ln" d="M0 214 C 60 206 92 186 130 172 C 175 155 205 132 250 118 C 296 104 330 78 372 58 C 414 38 462 30 500 16"/>
+              <g>
+                <circle class="halo" cx="130" cy="172" r="9" style="--i:0"/>
+                <circle class="halo" cx="250" cy="118" r="9" style="--i:1"/>
+                <circle class="halo" cx="372" cy="58" r="9" style="--i:2"/>
+                <circle class="n" cx="130" cy="172" r="5" style="--i:0"/>
+                <circle class="n" cx="250" cy="118" r="5" style="--i:1"/>
+                <circle class="n" cx="372" cy="58" r="5" style="--i:2"/>
+                <circle class="n" cx="500" cy="16" r="6.5" style="--i:3"/>
+              </g>
+            </svg>
 
-            const Contact = () => React.createElement('div', null, [
-                React.createElement('div', { className: 'relative pt-40 pb-32 bg-[#0d1b2a] text-center overflow-hidden text-white', key: 'h' }, 
-                    React.createElement('div', { className: 'container mx-auto px-6 relative z-10' }, [
-                        React.createElement('h1', { className: 'text-5xl md:text-6xl font-extrabold mb-4' }, 'Fale com a buzzbe'),
-                        React.createElement('p', { className: 'text-xl font-bold' }, 'Quer perguntar algo ou solicitar um orçamento?')
-                    ])
-                ),
-                React.createElement('section', { className: 'py-24 container mx-auto px-6', key: 'content' }, 
-                    React.createElement(Reveal, null,
-                        React.createElement('div', { className: 'flex flex-col lg:flex-row gap-20' }, [
-                            React.createElement('div', { className: 'lg:w-2/3', key: 'form' }, [
-                                React.createElement('h2', { className: 'text-2xl font-extrabold mb-10' }, 'Preencha o formulário abaixo que entraremos em contato em breve.'),
-                                React.createElement('form', { className: 'space-y-6 max-w-2xl' }, [
-                                    React.createElement('input', { placeholder: 'Seu nome', className: 'w-full p-3 border border-gray-200 rounded-sm bg-gray-50/50', key: 'i1' }),
-                                    React.createElement('input', { placeholder: 'Seu e-mail', type: 'email', className: 'w-full p-3 border border-gray-200 rounded-sm bg-gray-50/50', key: 'i2' }),
-                                    React.createElement('input', { placeholder: 'Assunto', className: 'w-full p-3 border border-gray-200 rounded-sm bg-gray-50/50', key: 'i3' }),
-                                    React.createElement('textarea', { placeholder: 'Sua mensagem (opcional)', className: 'w-full p-3 border border-gray-200 rounded-sm bg-gray-50/50 h-48', key: 'i4' }),
-                                    React.createElement('button', { type: 'button', className: 'btn-primary px-10 py-3 rounded-md font-bold text-sm uppercase', key: 'btn' }, 'ENVIAR')
-                                ])
-                            ]),
-                            React.createElement('div', { className: 'lg:w-1/3', key: 'info' }, [
-                                React.createElement('h3', { className: 'text-2xl font-extrabold mb-8' }, 'Entre em contato'),
-                                React.createElement('div', { className: 'mb-12' }, [
-                                    React.createElement('p', { className: 'font-bold text-sm mb-4' }, 'Confira nossos canais de contato.'),
-                                    React.createElement('div', { className: 'flex items-center gap-3 text-sm text-gray-500' }, [
-                                        React.createElement(Mail, { size: 16, className: 'text-buzz-blue', key: 'i' }), ' contato@buzzbe.com.br'
-                                    ])
-                                ]),
-                                React.createElement('p', { className: 'font-bold text-sm mb-4' }, 'Telefone e Whatsapp'),
-                                React.createElement('a', { href: 'tel:41998939133', className: 'text-3xl font-extrabold text-buzz-blue hover:opacity-80 transition-opacity' }, '(41) 99893-9133')
-                            ])
-                        ])
-                    )
-                )
-            ]);
+            <div class="panel-foot">
+              <div class="pf"><b>2012</b><i>ano de fundação</i></div>
+              <div class="pf"><b>6<span> frentes</span></b><i>sob um só plano</i></div>
+              <div class="pf"><b>100<span>%</span></b><i>foco em resultado</i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-            return React.createElement('div', { className: 'min-h-screen flex flex-col' }, [
-                React.createElement(Nav, { key: 'nav' }),
-                React.createElement('main', { className: 'flex-grow', key: 'main' }, [
-                    currentPage === 'home' && React.createElement(Home, { key: 'h' }),
-                    currentPage === 'about' && React.createElement(About, { key: 'a' }),
-                    currentPage === 'services' && React.createElement(Services, { key: 's' }),
-                    currentPage === 'contact' && React.createElement(Contact, { key: 'c' }),
-                ]),
-                React.createElement(Footer, { key: 'footer' }),
-                React.createElement('a', { 
-                    href: 'https://wa.me/5541998939133', 
-                    target: '_blank', 
-                    className: 'whatsapp-float',
-                    key: 'whatsapp'
-                }, [
-                    React.createElement(MessageCircle, { size: 22, fill: 'white', key: 'icon' }),
-                    React.createElement('span', { key: 'label' }, 'Whatsapp')
-                ])
-            ]);
-        };
+  <!-- ============ MARQUEE ============ -->
+  <div class="marq" aria-label="Marcas que confiam na buzzbe">
+    <p class="marq-label">Marcas que confiam na buzzbe</p>
+    <div class="marq-track" aria-hidden="false">
+      <div class="marq-set">
+        <span>ATT</span><span>América Rental</span><span>Grupo Vant</span><span>Toledo Pneus</span><span>Bella Casa</span><span>NutriVida</span><span>Construtora Hera</span><span>Movelar</span>
+      </div>
+      <div class="marq-set" aria-hidden="true">
+        <span>ATT</span><span>América Rental</span><span>Grupo Vant</span><span>Toledo Pneus</span><span>Bella Casa</span><span>NutriVida</span><span>Construtora Hera</span><span>Movelar</span>
+      </div>
+    </div>
+  </div>
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(React.createElement(App));
-    </script>
+  <!-- ============ STATS ============ -->
+  <section class="stat-strip" aria-label="Números da buzzbe">
+    <div class="stat-grid">
+      <div class="stat rv"><b><span class="num" data-to="12">0</span>+</b><i>anos de estrada em marketing e vendas</i></div>
+      <div class="stat rv" style="--d:90ms"><b><span class="num" data-to="40">0</span>+</b><i>marcas aceleradas com estratégia e dados</i></div>
+      <div class="stat rv" style="--d:180ms"><b><span class="num" data-to="6">0</span></b><i>frentes integradas em um único plano</i></div>
+      <div class="stat rv" style="--d:270ms"><b><span class="num" data-to="100">0</span>%</b><i>das entregas guiadas por métricas</i></div>
+    </div>
+  </section>
+
+  <!-- ============ SERVIÇOS ============ -->
+  <section class="sec" id="servicos">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow kicker rv"><span class="dot"></span>O que fazemos</span>
+          <h2 class="display d2 rv" style="--d:80ms">Soluções<br class="br-lg"> para o seu negócio.</h2>
+        </div>
+        <p class="lead rv" style="--d:160ms">Somos especialistas em trazer <b style="color:var(--ink);font-weight:600">resultados mensuráveis</b> para a sua empresa. Cada frente funciona sozinha — e fica muito mais forte quando trabalha junto.</p>
+      </div>
+
+      <div class="svc-list" id="svcList">
+        <article class="svc rv" tabindex="0">
+          <span class="svc-idx">01</span>
+          <div class="svc-t">
+            <span class="svc-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.8 14.4 9l6.6.3-5.1 4.2 1.7 6.4L12 16.4 6.4 19.9l1.7-6.4L3 9.3 9.6 9 12 2.8Z"/></svg></span>
+            <h3>Branding</h3>
+          </div>
+          <p>Ocupe a mente e o coração do seu público-alvo ao fortalecer e fixar a sua marca.</p>
+          <span class="svc-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </article>
+
+        <article class="svc rv" style="--d:60ms" tabindex="0">
+          <span class="svc-idx">02</span>
+          <div class="svc-t">
+            <span class="svc-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="4.2"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/></svg></span>
+            <h3>Performance (ADS)</h3>
+          </div>
+          <p>Gestão de anúncios em redes sociais para geração de resultados em curto prazo.</p>
+          <span class="svc-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </article>
+
+        <article class="svc rv" style="--d:120ms" tabindex="0">
+          <span class="svc-idx">03</span>
+          <div class="svc-t">
+            <span class="svc-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4v7a6 6 0 0 0 12 0V4"/><path d="M6 4H3.6v3A3.4 3.4 0 0 0 6 10.2M18 4h2.4v3a3.4 3.4 0 0 1-2.4 3.2"/><path d="M12 17v3.4"/></svg></span>
+            <h3>Inbound Marketing</h3>
+          </div>
+          <p>Método criado para atrair e converter novos clientes em diferentes etapas do funil de vendas a partir do marketing de conteúdo.</p>
+          <span class="svc-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </article>
+
+        <article class="svc rv" style="--d:180ms" tabindex="0">
+          <span class="svc-idx">04</span>
+          <div class="svc-t">
+            <span class="svc-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="6.2" cy="12" r="3.2"/><circle cx="17.8" cy="6" r="3.2"/><circle cx="17.8" cy="18" r="3.2"/><path d="M9.1 10.6 15 7.2M9.1 13.4l5.9 3.4"/></svg></span>
+            <h3>Redes Sociais</h3>
+          </div>
+          <p>Planejamento multiplataforma, produção de conteúdo e gestão das plataformas digitais.</p>
+          <span class="svc-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </article>
+
+        <article class="svc rv" style="--d:240ms" tabindex="0">
+          <span class="svc-idx">05</span>
+          <div class="svc-t">
+            <span class="svc-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4.4 8h15.2l-1.5 12.2H5.9L4.4 8Z"/><path d="M8.6 8V6.4a3.4 3.4 0 0 1 6.8 0V8"/></svg></span>
+            <h3>eCommerce</h3>
+          </div>
+          <p>Planejar, executar, mensurar e otimizar campanhas de marketing digital voltadas para o comércio eletrônico.</p>
+          <span class="svc-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </article>
+
+        <article class="svc rv" style="--d:300ms" tabindex="0">
+          <span class="svc-idx">06</span>
+          <div class="svc-t">
+            <span class="svc-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.8" cy="10.8" r="6.4"/><path d="M15.6 15.6 20.6 20.6"/></svg></span>
+            <h3>SEO</h3>
+          </div>
+          <p>Otimização para Google: sua empresa bem posicionada no principal buscador da rede.</p>
+          <span class="svc-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BAND / MANIFESTO ============ -->
+  <section class="sec band on-dark" id="estudio">
+    <div class="wrap">
+      <div class="band-grid">
+        <h2 class="quote rv-clip">Performance é processo.<br><span class="soft">Sorte é acidente.</span></h2>
+
+        <div class="band-copy">
+          <p class="rv" style="--d:80ms">Entendemos que o mundo está em constante mudança — assim como as empresas e os negócios. Por isso não entregamos receita de bolo: entregamos leitura de mercado, hipótese, teste e otimização.</p>
+          <p class="rv" style="--d:150ms">Nosso time é enxuto, sênior e próximo. Você fala com quem coloca a mão no painel.</p>
+
+          <ul class="tick rv" style="--d:220ms">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg> Estratégia desenhada sobre os seus números, não sobre suposições.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg> Tecnologia e análise detalhada de mercado em cada decisão de verba.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg> Transparência total: relatórios que qualquer sócio entende.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg> Missão: gerar transformação ao encontrar o seu propósito com estratégias de publicidade, marketing e vendas.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROCESSO ============ -->
+  <section class="sec" id="processo">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow kicker rv"><span class="dot"></span>Como trabalhamos</span>
+          <h2 class="display d2 rv" style="--d:80ms">Um método<br>em quatro tempos.</h2>
+        </div>
+        <p class="lead rv" style="--d:160ms">Nada de campanha no escuro. O ciclo se repete, encurta e fica mais barato a cada volta — porque o aprendizado fica na sua empresa.</p>
+      </div>
+
+      <div class="steps">
+        <div class="step rv"><span class="rail" aria-hidden="true"></span><span class="n">01 / DIAGNÓSTICO</span>
+          <h4>Imersão e leitura</h4>
+          <p>Mapeamos produto, margem, público e histórico de mídia. Descobrimos onde está o dinheiro deixado na mesa.</p></div>
+        <div class="step rv" style="--d:90ms"><span class="rail" aria-hidden="true"></span><span class="n">02 / PLANO</span>
+          <h4>Hipótese e verba</h4>
+          <p>Definimos canais, criativos, metas e orçamento. Cada real tem uma função e uma meta clara.</p></div>
+        <div class="step rv" style="--d:180ms"><span class="rail" aria-hidden="true"></span><span class="n">03 / EXECUÇÃO</span>
+          <h4>Produção e mídia</h4>
+          <p>Conteúdo, campanhas e página trabalhando juntos, no mesmo ritmo de teste e aprendizado.</p></div>
+        <div class="step rv" style="--d:270ms"><span class="rail" aria-hidden="true"></span><span class="n">04 / OTIMIZAÇÃO</span>
+          <h4>Medir e escalar</h4>
+          <p>Relatório, corte do que não funciona e escala no que performa. E o ciclo recomeça, mais afiado.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA / CONTATO ============ -->
+  <section class="sec cta on-dark" id="contato">
+    <div class="wrap">
+      <div class="cta-grid">
+        <div>
+          <span class="eyebrow rv"><span class="dot"></span>Vamos começar</span>
+          <h2 class="display d2 rv" style="--d:80ms;margin-top:22px">Gostaria de iniciar<br class="br-lg"> um projeto conosco?</h2>
+          <p class="lead rv" style="--d:150ms;margin-top:24px;color:rgba(255,255,255,.82)">Clique no botão e solicite um orçamento. Em poucas horas você recebe um diagnóstico inicial e os próximos passos — sem compromisso.</p>
+          <div class="rv" style="--d:220ms;margin-top:36px">
+            <a class="btn btn-white" href="https://wa.me/5541998939133?text=Ol%C3%A1%2C%20quero%20um%20or%C3%A7amento%20de%20marketing%20de%20performance." target="_blank" rel="noopener">
+              Solicitar orçamento
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="cta-list rv" style="--d:180ms">
+          <a class="cta-row" href="mailto:contato@buzzbe.com.br">
+            <span>E-mail</span>
+            <b>contato@buzzbe.com.br <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></b>
+          </a>
+          <a class="cta-row" href="tel:+5541998939133">
+            <span>Telefone e WhatsApp</span>
+            <b>(41) 99893-9133 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></b>
+          </a>
+          <a class="cta-row" href="https://wa.me/5541998939133" target="_blank" rel="noopener">
+            <span>WhatsApp</span>
+            <b>Fale agora <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></b>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="foot on-dark">
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <span class="eyebrow"><span class="dot"></span>Consultoria de marketing de performance</span>
+        <p class="foot-word" aria-hidden="true">buzzbe</p>
+      </div>
+
+      <div>
+        <h5>Institucional</h5>
+        <ul>
+          <li><a href="#top">Página inicial</a></li>
+          <li><a href="#servicos">Serviços</a></li>
+          <li><a href="#processo">Processo</a></li>
+          <li><a href="#estudio">Estúdio</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h5>Fale conosco</h5>
+        <ul>
+          <li><a href="mailto:contato@buzzbe.com.br">contato@buzzbe.com.br</a></li>
+          <li><a href="tel:+5541998939133">(41) 99893-9133</a></li>
+          <li><a href="https://wa.me/5541998939133" target="_blank" rel="noopener">Fale no WhatsApp</a></li>
+          <li><span>Curitiba — PR, Brasil</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="foot-bot">
+      <span>Copyright © <span id="yr">2026</span> buzzbe · Todos os direitos reservados.</span>
+      <a class="up" href="#top">Voltar ao topo
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<a class="wa" href="https://wa.me/5541998939133?text=Ol%C3%A1%2C%20quero%20falar%20com%20a%20buzzbe." target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.6 2 2.2 6.4 2.2 11.84c0 1.74.46 3.44 1.32 4.94L2 22l5.36-1.4c1.44.78 3.06 1.2 4.68 1.2 5.44 0 9.84-4.4 9.84-9.84S17.48 2 12.04 2Zm5.76 13.9c-.24.68-1.4 1.3-1.94 1.36-.54.06-1.04.24-3.5-.8-2.96-1.26-4.8-4.36-4.94-4.56-.14-.2-1.16-1.6-1.1-3.02.06-1.42.82-2.1 1.1-2.38.28-.28.6-.34.8-.34h.56c.18 0 .42-.02.64.5.24.56.8 1.98.86 2.12.06.14.1.3.02.48-.08.18-.2.3-.34.46-.14.16-.3.28-.42.44-.14.16-.28.32-.12.62.16.3.72 1.2 1.54 1.94 1.06.94 1.9 1.24 2.18 1.38.28.14.44.12.6-.06.16-.18.7-.82.9-1.1.2-.28.38-.22.64-.12.26.1 1.66.78 1.94.92.28.14.48.22.54.34.06.12.06.7-.18 1.38Z"/></svg>
+  <span>WhatsApp</span>
+</a>
+
+<script>
+(function(){
+  var doc = document.documentElement;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- ano ---------- */
+  var yr = document.getElementById('yr');
+  if (yr) yr.textContent = new Date().getFullYear();
+
+  /* ---------- menu mobile ---------- */
+  var burger = document.getElementById('burger');
+  var drawer = document.getElementById('drawer');
+  if (burger) {
+    burger.addEventListener('click', function(){
+      var open = document.body.classList.toggle('menu-open');
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      burger.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+    });
+    drawer.addEventListener('click', function(e){
+      if (e.target.closest('a')) {
+        document.body.classList.remove('menu-open');
+        burger.setAttribute('aria-expanded','false');
+      }
+    });
+  }
+
+  /* ---------- nav sólido + barra de progresso ---------- */
+  var nav = document.getElementById('nav');
+  var bar = document.getElementById('progress');
+  var ticking = false;
+  function onScroll(){
+    var y = window.scrollY || doc.scrollTop;
+    if (nav) nav.classList.toggle('solid', y > 40);
+    if (bar) {
+      var h = doc.scrollHeight - window.innerHeight;
+      bar.style.transform = 'scaleX(' + (h > 0 ? Math.min(y / h, 1) : 0) + ')';
+    }
+    ticking = false;
+  }
+  window.addEventListener('scroll', function(){
+    if (!ticking) { ticking = true; requestAnimationFrame(onScroll); }
+  }, {passive:true});
+  onScroll();
+
+  /* ---------- reveal ---------- */
+  var revealables = document.querySelectorAll('.rv, .rv-clip, .step, .panel');
+  if ('IntersectionObserver' in window && !reduce) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting) {
+          en.target.classList.add('in');
+          io.unobserve(en.target);
+        }
+      });
+    }, {threshold:.16, rootMargin:'0px 0px -8% 0px'});
+    revealables.forEach(function(el){ io.observe(el); });
+  } else {
+    revealables.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  /* ---------- contadores ---------- */
+  var nums = document.querySelectorAll('.num');
+  function runCount(el){
+    var to = parseFloat(el.getAttribute('data-to')) || 0;
+    if (reduce) { el.textContent = to; return; }
+    var dur = 1500, t0 = null;
+    function frame(t){
+      if (t0 === null) t0 = t;
+      var p = Math.min((t - t0) / dur, 1);
+      var e = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(to * e);
+      if (p < 1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+  if ('IntersectionObserver' in window) {
+    var io2 = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting) { runCount(en.target); io2.unobserve(en.target); }
+      });
+    }, {threshold:.6});
+    nums.forEach(function(el){ io2.observe(el); });
+  } else {
+    nums.forEach(runCount);
+  }
+
+  /* ---------- hero ready ---------- */
+  requestAnimationFrame(function(){
+    setTimeout(function(){ document.body.classList.add('ready'); }, 60);
+  });
+})();
+</script>
 </body>
 </html>
